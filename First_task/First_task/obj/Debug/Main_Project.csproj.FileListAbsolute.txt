@@ -1,0 +1,11 @@
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\First_task.exe.config
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\First_task.exe
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\First_task.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\Main_Project.csprojResolveAssemblyReference.cache
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\First_task.MainForm.resources
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\First_task.Properties.Resources.resources
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\Main_Project.csproj.GenerateResource.Cache
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\First_task.exe
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\obj\Debug\First_task.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\MEFcommon.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\MEFcommon.pdb

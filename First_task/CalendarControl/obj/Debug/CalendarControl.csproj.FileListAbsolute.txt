@@ -1,0 +1,7 @@
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\CalendarControl\bin\Debug\CalendarControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\CalendarControl\bin\Debug\CalendarControl.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\CalendarControl\obj\Debug\CalendarControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\CalendarControl\obj\Debug\CalendarControl.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\editors\CalendarControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\editors\CalendarControl.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\CalendarControl\obj\Debug\CalendarControl.csprojResolveAssemblyReference.cache

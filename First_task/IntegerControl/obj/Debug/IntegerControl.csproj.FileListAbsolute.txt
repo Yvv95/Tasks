@@ -1,0 +1,7 @@
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\IntegerControl\bin\Debug\IntegerControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\IntegerControl\bin\Debug\IntegerControl.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\IntegerControl\obj\Debug\IntegerControl.csprojResolveAssemblyReference.cache
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\IntegerControl\obj\Debug\IntegerControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\IntegerControl\obj\Debug\IntegerControl.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\editors\IntegerControl.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\First_task\bin\Debug\editors\IntegerControl.pdb

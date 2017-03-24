@@ -1,0 +1,4 @@
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\MEFcommon\bin\Debug\MEFcommon.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\MEFcommon\bin\Debug\MEFcommon.pdb
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\MEFcommon\obj\Debug\MEFcommon.dll
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\First_task\MEFcommon\obj\Debug\MEFcommon.pdb
