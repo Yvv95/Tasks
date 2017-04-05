@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="ExchangeRates.ValuteBox"
+             xmlns:my="clr-namespace:ImageLoader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExchangeRates"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Grid Background="#FF3C3876" Margin="5" Height="100" HorizontalAlignment="Left" OpacityMask="Black" Width="100">
+        <Image x:Name="image" Source="{Binding Path=Path}" HorizontalAlignment="Left" Height="37" Margin="0,34,0,29"  Width="45"
+               >
+            <!--<Image.Source>
+                <BitmapImage UriSource="C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\Pictures\USD.gif"></BitmapImage>
+            </Image.Source>-->
+        </Image>
+               
+        <Label x:Name="nameBox"   ToolTip="{Binding Path=Name}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="100" Margin="0,0,0,50" FontWeight="Bold" FontSize="14">
+            <Label.Content>
+                <AccessText TextAlignment="Right" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
+            </Label.Content>
+        </Label>
+        <Label x:Name="kurseBox" Content="{Binding Path=Exchange}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Margin="0,71,1,0"  Width="99" Height="29" FontWeight="Bold"/>
+        <!--<Rectangle Fill="#FF4E5370" HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Margin="0,0,-10,0"/>-->
+    </Grid>
+</UserControl>

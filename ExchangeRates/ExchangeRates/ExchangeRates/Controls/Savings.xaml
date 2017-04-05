@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ExchangeRates.Savings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExchangeRates"
+             mc:Ignorable="d" Width="354.393" Height="46.425">
+    <Grid HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="341">
+        <ComboBox x:Name="comboBox" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="151" Height="22"/>
+        <Button x:Name="button" Content="X" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" Width="18" Height="22" BorderThickness="1,3,1,1" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Red" FontWeight="Bold" Click="button_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="174,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="textBox_PreviewTextInput"/>
+    </Grid>
+</UserControl>

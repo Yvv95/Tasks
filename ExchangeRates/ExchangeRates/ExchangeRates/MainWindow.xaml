@@ -1,0 +1,64 @@
+﻿<Window x:Class="ExchangeRates.MainWindow"
+        Name="startWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExchangeRates"
+        xmlns:config="clr-namespace:ExchangeRates.Properties"
+        mc:Ignorable="d"
+        Title="Курс валют" Height="360" Width="786.189" SizeChanged="Window_SizeChanged" SizeToContent="Height">
+    <Window.Resources>
+        <!--Здесь задать прямоугольники для выбранных валют-->
+    </Window.Resources>
+    <Grid x:Name="inputGrid" Margin="0,0,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto">
+            </RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Separator Grid.Row="0" HorizontalAlignment="Left" Height="8" Margin="0,-3,0,0" VerticalAlignment="Top" Width="776"/>
+        <Separator Grid.Row="0" HorizontalAlignment="Left" Height="11" Margin="0,36,0,0" VerticalAlignment="Top" Width="776"/>
+        <Grid Grid.Row="1" Name="valGrid" Background="#FF1E223B" MinHeight="400">
+            <Label x:Name="valutes" Content="Избранные валюты" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Wide Latin" FontSize="18" Background="{x:Null}" Foreground="White" Width="205" FontWeight="Bold"/>
+            <!--<Rectangle Fill="#FF4E5370" HorizontalAlignment="Left" Height="90" Margin="35,64,0,0" Stroke="Black" VerticalAlignment="Top" Width="109"/>
+            <Label x:Name="dollarLabel" Content="{Binding Path=Name}" HorizontalAlignment="Left" Margin="62,64,0,0" VerticalAlignment="Top" Foreground="#FFB6B8DB" Width="82" Height="37"/>
+            <TextBox x:Name="lastUpdate" HorizontalAlignment="Left" Height="27" Margin="454,10,0,0" TextWrapping="Wrap" Text="Актуально на " VerticalAlignment="Top" Width="269" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB01212" BorderBrush="{x:Null}"/>
+            <Image x:Name="dollarImage" HorizontalAlignment="Left" Height="36" Margin="47,90,0,0" VerticalAlignment="Top" Width="40" Source="Pictures/доллар.png" OpacityMask="#FF6C1717"/>
+            <TextBox x:Name="exchTextBox" Text="{Binding Path=Exchange}" HorizontalAlignment="Left" Height="26" Margin="62,126,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="82" Background="{x:Null}" FontWeight="Bold" FontSize="18" Foreground="White" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" IsEnabled="False"/>-->
+            <TextBox x:Name="lastUpdate" HorizontalAlignment="Right" Height="27" Text="Актуально на " VerticalAlignment="Top"  SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB01212" BorderBrush="{x:Null}" IsEnabled="False" FontSize="15"/>
+            <WrapPanel Name="valutesPanel"   HorizontalAlignment="Left"  Margin="10,42,0,0" VerticalAlignment="Top" />
+            <Grid Name="valutesGrid" VerticalAlignment="Top">
+            </Grid>
+            <!--<Rectangle Fill="#FF4E5370" HorizontalAlignment="Left" Height="90" Margin="209,64,0,0" Stroke="Black" VerticalAlignment="Top" Width="109"/>
+            <Label x:Name="euroLabel" Content="{Binding Name}" HorizontalAlignment="Left" Margin="236,64,0,0" VerticalAlignment="Top" Foreground="#FFB6B8DB" Width="82" Height="37"/>
+            <TextBox x:Name="exchTextBox2" Text="{Binding Exchange}" HorizontalAlignment="Left" Height="26" Margin="236,126,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="82" Background="{x:Null}" FontWeight="Bold" FontSize="18" Foreground="White" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" IsEnabled="False"/>
+            <Image x:Name="euroImage" HorizontalAlignment="Left" Height="36" Margin="223,90,0,0" VerticalAlignment="Top" Width="41" Source="Pictures/евро.png"/>-->
+            <!--<Grid Name="valutePanel" Margin="0,42,0,0">
+            </Grid>-->
+            <!--<StackPanel Name="stackPanel" HorizontalAlignment="Left" Height="282" VerticalAlignment="Top" Width="776"/>-->
+        </Grid>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button x:Name="mainButton" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Foreground="{x:Null}" BorderBrush="{x:Null}" Height="26" Click="mainButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="{Binding Path=First}" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="diagramButton" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="diagramButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="{Binding Path=Second}" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="savingsButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Click="button_Click" Height="26" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="0.161,0.423">
+                <Button.Background>
+                    <ImageBrush ImageSource="{Binding Path=Third}" />
+                </Button.Background>
+            </Button>
+            <Button x:Name="settingButton" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Foreground="{x:Null}" BorderBrush="{x:Null}" Height="24" Click="settingButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="{Binding Path=Fourth}" />
+                </Button.Background>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
