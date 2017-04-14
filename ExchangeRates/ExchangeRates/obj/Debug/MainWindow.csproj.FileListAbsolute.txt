@@ -11,8 +11,12 @@ c:\users\yusupov.v\documents\visual studio 2015\Projects\ExchangeRates\ExchangeR
 c:\users\yusupov.v\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\MainWindow.csproj.GenerateResource.Cache
 c:\users\yusupov.v\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\ExchangeRates.exe
 c:\users\yusupov.v\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\ExchangeRates.pdb
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\Savings.g.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\Settings.g.cs
 C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\Savings.baml
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\Settings.baml
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\MainWindow.csprojResolveAssemblyReference.cache
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\ValuteBox.g.cs
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Controls\ValuteBox.baml
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\ExchangeRates_Content.g.cs
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\App.baml
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Tabs\SavingForm.g.cs
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Tabs\Settings.g.cs
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Tabs\SavingForm.baml
+C:\Users\Yusupov.V\documents\visual studio 2015\Projects\ExchangeRates\ExchangeRates\obj\Debug\Tabs\Settings.baml

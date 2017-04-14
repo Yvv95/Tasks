@@ -37,8 +37,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,21 +59,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\Savings.xaml.cs">
-      <DependentUpon>Savings.xaml</DependentUpon>
+    <Compile Include="Tabs\SavingForm.xaml.cs">
+      <DependentUpon>SavingForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Counts.cs" />
+    <Compile Include="ImageLoader.cs" />
     <Compile Include="Service References\CBRFServices\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings.xaml.cs">
+    <Compile Include="Tabs\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ValuteBox.xaml.cs">
+      <DependentUpon>ValuteBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabChanger.cs" />
+    <Compile Include="TemplatePanel.cs" />
+    <Compile Include="ValuteConverter.cs" />
     <Compile Include="ValuteHelper.cs" />
+    <Compile Include="ValuteListConverter.cs" />
     <Compile Include="Valutes.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Page Include="Tabs\SavingForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,11 +97,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Controls\Savings.xaml">
+    <Page Include="Tabs\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings.xaml">
+    <Page Include="Controls\ValuteBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,18 +158,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\динамика.png" />
-    <Resource Include="Pictures\доллар.png" />
-    <Resource Include="Pictures\евро.png" />
+    <Resource Include="Pictures\not2.png" />
+    <Resource Include="Pictures\2.png" />
+    <Resource Include="Pictures\3.png" />
+    <Resource Include="Pictures\4.png" />
+    <Resource Include="Pictures\not1.png" />
+    <Content Include="Pictures\CHF.gif" />
+    <Content Include="Pictures\GBP.gif" />
+    <Content Include="Pictures\JPY.gif" />
+    <Content Include="Pictures\SEK.gif" />
+    <Content Include="Pictures\USD.gif" />
+    <Content Include="Pictures\EUR.gif" />
     <Resource Include="Pictures\йена.png" />
-    <Resource Include="Pictures\кошелёк.png" />
+    <Resource Include="Pictures\not3.png" />
     <Resource Include="Pictures\крона.png" />
-    <Resource Include="Pictures\купюра.png" />
+    <Resource Include="Pictures\1.png" />
     <Resource Include="Pictures\франк.png" />
     <Resource Include="Pictures\фунт.png" />
-    <Resource Include="Pictures\шестерёнка.png" />
+    <Resource Include="Pictures\not4.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Pictures\CNY.gif" />
+    <Resource Include="Pictures\INR.gif" />
+    <Resource Include="Pictures\KRW.gif" />
+    <Resource Include="Pictures\Main.gif" />
+    <Resource Include="Pictures\UAH.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

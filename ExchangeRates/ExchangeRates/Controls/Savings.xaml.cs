@@ -3,56 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExchangeRates.Controls;
+using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace ExchangeRates
 {
-    /// <summary>
-    /// Interaction logic for Savings.xaml
-    /// </summary>
     public partial class Savings : UserControl
     {
         public double money = 100;
-        public double finalValuta=1;
+        public double finalValuta = 1;
         public int code = 0;
 
-        public Savings()
+        public Savings(Valutes val)
         {
             InitializeComponent();
             comboBox.DataContext = ValuteHelper.getNames();
-            //textBox.DataContext = money;
-            countedSum.DataContext = code.ToString();
 
-            //Counts convert = new Counts(0, 0);
-            //countedSum.DataContext = convert;
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //code = ValuteHelper.getValuteByName((sender as ComboBox).SelectedItem.ToString()).WorldName;
-
-            money = Double.Parse(textBox.Text);
-            Counts convert = new Counts(money, Double.Parse(ValuteHelper.getValuteByName(comboBox.SelectedItem.ToString()).Exchange));           
-            countedSum.DataContext = convert;
 
         }
 
-        private void textBox_LostFocus(object sender, RoutedEventArgs e)
+        //метод, чтобы вводились только цифры
+        private void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            
+            if (Char.IsDigit(e.Text, 0) || (e.Text == ","))
+            {
+                e.Handled = false;
+            }
+            else e.Handled = true;
         }
 
-        private void countedSum_TextChanged(object sender, TextChangedEventArgs e)
+        private void button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-          
+            //сделать отдельное поле в классе Valutes для отображения и прибиндиться на него?
+
         }
     }
 }
