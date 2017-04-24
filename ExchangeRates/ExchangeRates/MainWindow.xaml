@@ -7,48 +7,178 @@
         xmlns:local="clr-namespace:ExchangeRates"
         xmlns:config="clr-namespace:ExchangeRates.Properties"
         mc:Ignorable="d"
-        MinWidth="600"
-        MinHeight="600"
-        
-        Title="     Money rate" Height="360"  Width="800" SizeChanged="Window_SizeChanged" SizeToContent="Height" WindowStyle="ToolWindow">
-
-
-
+        MinWidth="450"
+        MinHeight="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+        SizeToContent="Height"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        BorderThickness="1">
     <Window.Resources>
+        <Image x:Key="MyImage"
+               Source="Pictures\close.png" />
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <ContentPresenter
-                  Margin="{TemplateBinding Control.Padding}"
-                  HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                  VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-                  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                  RecognizesAccessKey="True"
-                  Content="{TemplateBinding ContentControl.Content}" />
+                        <ContentPresenter Margin="{TemplateBinding Control.Padding}"
+                                          HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                          ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                          RecognizesAccessKey="True"
+                                          Content="{TemplateBinding ContentControl.Content}" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--<cm:BackgroundWorker x:Key="backgroundWorker"></cm:BackgroundWorker>-->
     </Window.Resources>
-    <Grid x:Name="inputGrid" Margin="0,0,2,0" Background="#FF1E223B">
+
+
+
+    <Grid x:Name="inputGrid"
+          Margin="0,0,0,0"
+          Background="#FF1E223B"
+          SizeChanged="inputGrid_SizeChanged"
+          MouseDown="inputGrid_MouseDown">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="100">
+            <RowDefinition Height="150">
             </RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Separator Grid.Row="0" HorizontalAlignment="Stretch" Height="12" Margin="0,-4,0,0" VerticalAlignment="Top" />
-        <Separator Grid.Row="0"  HorizontalAlignment="Stretch" Height="12" Margin="30,78,30,0" VerticalAlignment="Top" />
-        <Grid Grid.Row="1" Name="valGrid" Background="#FF1E223B" MinHeight="400"  >
-            <Label x:Name="valutes" Content="Избранные валюты" Margin="30, 0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Brush Script MT" FontSize="14" Background="{x:Null}" Foreground="White" Width="205" FontWeight="Bold"/>
-            <TextBox x:Name="lastUpdate" HorizontalAlignment="Right" Height="27" Margin="0, 0, 30, 0" Text="Актуально на " VerticalAlignment="Top"  SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FFB01212" BorderBrush="{x:Null}" IsEnabled="False" FontSize="15"/>
-            <WrapPanel Name="valutesPanel"   HorizontalAlignment="Left"  Margin="10,42,0,0" VerticalAlignment="Top" />
-            <Grid Name="valutesGrid" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="311*" />
+            <ColumnDefinition Width="77*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+
+        <!--<StackPanel Grid.ColumnSpan="3"  Orientation="Horizontal" Grid.Row="0"  VerticalAlignment="Top" Height="25"  MouseDown="StackPanel_MouseDown">-->
+        <StackPanel Name="TitleBar"
+                    Background="Transparent"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    Width="Auto"
+                    Height="25"
+                    VerticalAlignment="Top"
+                    MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
+            <Grid Width="Auto"
+                  Height="25"
+                  VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Margin="20, 0, 0,0"
+                       Grid.Column="0"
+                       HorizontalAlignment="Left"
+                       Content="Money Rate"
+                       Height="25"
+                       Foreground="#c7c7e6"></Label>
+                <Button  x:Name="CloseButton"
+                         Content="{StaticResource MyImage}"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Top"
+                         KeyboardNavigation.IsTabStop="False"
+                         Foreground="#b7b8dc"
+                         Visibility="Visible"
+                         Margin="0, 5, 10 ,5"
+                         Command="{Binding ApplicationCommands.Close}"
+                         HorizontalAlignment="Right"
+                         Width="12"
+                         Height="12"
+                         Click="CloseButton_Click" />
             </Grid>
+        </StackPanel>
+        <!--</StackPanel>-->
+
+        <Separator Grid.Row="0"
+                   Background="#292f4e"
+                   HorizontalAlignment="Stretch"
+                   Height="12"
+                   Margin="0,25,0,0"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+
+
+
+
+
+
+
+        <Separator Grid.Row="0"
+                   Background="#292f4e"
+                   HorizontalAlignment="Stretch"
+                   Height="12"
+                   Margin="23,133,23,0"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="3" />
+
+        <Grid   Grid.Row="1"
+                Name="valGrid"
+                Background="#FF1E223B"
+                MinHeight="400"
+                Grid.ColumnSpan="3">
+            <Label x:Name="valutes"
+                   BorderThickness="0"
+                   Content="Избранные валюты"
+                   Margin="19, 0,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontFamily="Brush Script MT"
+                   FontSize="14"
+                   Background="{x:Null}"
+                   Foreground="White"
+                   Width="205"
+                   FontWeight="Bold" />
+        
+                <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 0, 30, 0">
+                <TextBox x:Name="lastUpdate"
+                         HorizontalAlignment="Right"
+                         Height="30"
+                         
+                         Text="Обновление..."
+                         VerticalAlignment="Top"
+                         SelectionBrush="{x:Null}"
+                         Background="{x:Null}"
+                         Foreground="#FFB01212"
+                         BorderBrush="{x:Null}"
+                         IsEnabled="False"
+                         FontSize="15"
+                         BorderThickness="0" />
+            </StackPanel>
+         
+            <WrapPanel Name="valutesPanel"
+                       HorizontalAlignment="Left"
+                       Margin="19,30,0,0"
+                       VerticalAlignment="Top" />
+            <Grid Name="valutesGrid"
+                  VerticalAlignment="Top">
+            </Grid>
+
+            <!--<ProgressBar Name="loadBarPercent" Width="100"
+                             Height="10" Background="Green" Foreground="White" VerticalAlignment="Top"
+                              />-->
+
         </Grid>
-        <StackPanel Margin="30, 0, 30 ,0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
-            <ListBox Name="Tabs" ItemContainerStyle="{StaticResource ListBoxItemStyle}"  HorizontalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="Transparent" Width="464" >
+        <StackPanel Margin="0,35,0,10"
+                    Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="2">
+            <ListBox Name="Tabs"
+                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                     HorizontalContentAlignment="Stretch"
+                     Background="{x:Null}"
+                     BorderBrush="Transparent"
+                     Width="390"
+                     SelectionChanged="Tabs_SelectionChanged"
+                     Margin="10,20,10,15">
                 <!--Для горизонтального вывода в ListBox-->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -56,33 +186,89 @@
                         </StackPanel>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-                <StackPanel Orientation="Vertical" Height="60" Margin="20, 0, 25, 0">
-                    <Button x:Name="mainButton" Margin="0, 10, 0, 0"   BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="34"  Height="26" Click="mainButton_Click">
-                        <Image Source="{Binding Path=First}"/>
+                <StackPanel Orientation="Vertical"
+                            Height="60"
+                            Margin="0, 0, 20, 0">
+                    <Button x:Name="mainButton"
+                            Margin="0, 10, 0, 0"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Width="34"
+                            Height="26"
+                            IsEnabled="False">
+                        <Image Source="{Binding Path=First}" />
                     </Button>
-                    <Label x:Name="firstL" Content="Курс валют" Margin="0, 0, 0,0" FontSize="10" HorizontalAlignment="Stretch" Foreground="{Binding Path=FirstLabel}"/>
+                    <Label x:Name="firstL"
+                           Content="Курс валют"
+                           Margin="0, 0, 0,0"
+                           FontSize="10"
+                           HorizontalAlignment="Stretch"
+                           Foreground="{Binding Path=FirstLabel}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Height="60" Margin="25, 0, 25, 0">
-                    <Button x:Name="diagramButton" Margin="0, 10, 0, 0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="34" Height="26" Click="diagramButton_Click">
-                        <Image Source="{Binding Path=Second}"/>
+                <StackPanel Orientation="Vertical"
+                            Height="60"
+                            Margin="20, 0, 20, 0">
+                    <Button x:Name="diagramButton"
+                            Margin="0, 10, 0, 0"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Width="34"
+                            Height="26"
+                            IsEnabled="False">
+                        <Image Source="{Binding Path=Second}" />
                     </Button>
-                    <Label x:Name="secondL" Margin="0, 0, 0,0" Content="Динамика" FontSize="10" HorizontalAlignment="Stretch" Foreground="{Binding Path=SecondLabel}"/>
+                    <Label x:Name="secondL"
+                           Margin="0, 0, 0,0"
+                           Content="Динамика"
+                           FontSize="10"
+                           HorizontalAlignment="Stretch"
+                           Foreground="{Binding Path=SecondLabel}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Height="60" Margin="25, 0, 25, 0">
-                    <Button x:Name="savingsButton" Margin="0, 10, 0, 0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="34" Click="button_Click" Height="26">
-                        <Image Source="{Binding Path=Third}"/>
+                <StackPanel Orientation="Vertical"
+                            Height="60"
+                            Margin="20, 0, 20, 0">
+                    <Button x:Name="savingsButton"
+                            Margin="0, 10, 0, 0"
+                            BorderThickness="0"
+                            IsEnabled="False"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Width="34"
+                            Height="26">
+                        <Image Source="{Binding Path=Third}" />
                     </Button>
-                    <Label x:Name="thirdL" Margin="0, 0, 0,0" Content="Кошелёк" FontSize="10" HorizontalAlignment="Stretch" Foreground="{Binding Path=ThirdLabel}"/>
+                    <Label x:Name="thirdL"
+                           Margin="0, 0, 0,0"
+                           Content="Кошелёк"
+                           FontSize="10"
+                           HorizontalAlignment="Stretch"
+                           Foreground="{Binding Path=ThirdLabel}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical" Height="60" Margin="25, 0, 25, 0">
+                <StackPanel Orientation="Vertical"
+                            Height="60"
+                            Margin="20, 0, 0, 0">
 
-                    <Button x:Name="settingButton" Margin="0, 10, 0, 0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="34" Height="26" Click="settingButton_Click">
-                        <Image Source="{Binding Path=Fourth}"/>
+                    <Button x:Name="settingButton"
+                            Margin="0, 10, 0, 0"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Width="34"
+                            Height="26"
+                            IsEnabled="False">
+                        <Image Source="{Binding Path=Fourth}" />
                     </Button>
-                    <Label x:Name="fourthL" Margin="0, 0, 0,0" Content="Настройки" FontSize="10" HorizontalAlignment="Stretch" Foreground="{Binding Path=FourthLabel}"/>
+                    <Label x:Name="fourthL"
+                           Margin="0, 0, 0,0"
+                           Content="Настройки"
+                           FontSize="10"
+                           HorizontalAlignment="Stretch"
+                           Foreground="{Binding Path=FourthLabel}" />
                 </StackPanel>
 
             </ListBox>
