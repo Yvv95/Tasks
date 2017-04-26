@@ -156,27 +156,28 @@ namespace ExchangeRates
 
 
                 #region Загрузчик валют за предыдущий период 
-                ////////////////////////////////
-                ////для динамики
-                double changed = 0;
-                DataSet DSC = (System.Data.DataSet)tmp.EnumValutes(false); //Получаем список валют
-                System.Data.DataTable tbl = DSC.Tables["EnumValutes"]; //получаем саму таблицу со списком валют
-                Dictionary<string, string> codeGetter = new Dictionary<string, string>();
-                //словарь - для получения кода валюты по другому её коду
-                for (int i = 0; i < tbl.Rows.Count; i++)
-                {
-                    if (!codeGetter.ContainsKey(tbl.Rows[i]["VnumCode"].ToString().Trim()))
-                        codeGetter.Add(tbl.Rows[i]["VnumCode"].ToString().Trim(), tbl.Rows[i]["Vcode"].ToString().Trim());
-                    //заполнили словарь
-                }
-                DateTime prevLoad = lastLoad.AddDays(-5); //дату на день назад. тут на 5 дней
-                var ofk = tmp.GetCursDynamic(prevLoad, lastLoad, codeGetter["978"]); //код евро
-                DataTable dynamicKurse = ofk.Tables["ValuteCursDynamic"];
-                //Таблица динамики: 0-время, 1-iso код, 2-какой-то номер, 3-текущий курс            
-                changed = double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-1][3].ToString()) -
-                          double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-2][3].ToString()); //изменение за день
-                ///////////////////////////////
+                //////////////////////////////////
+                //////для динамики
+                //double changed = 0;
+                //DataSet DSC = (System.Data.DataSet)tmp.EnumValutes(false); //Получаем список валют
+                //System.Data.DataTable tbl = DSC.Tables["EnumValutes"]; //получаем саму таблицу со списком валют
+                //Dictionary<string, string> codeGetter = new Dictionary<string, string>();
+                ////словарь - для получения кода валюты по другому её коду
+                //for (int i = 0; i < tbl.Rows.Count; i++)
+                //{
+                //    if (!codeGetter.ContainsKey(tbl.Rows[i]["VnumCode"].ToString().Trim()))
+                //        codeGetter.Add(tbl.Rows[i]["VnumCode"].ToString().Trim(), tbl.Rows[i]["Vcode"].ToString().Trim());
+                //    //заполнили словарь
+                //}
+                //DateTime prevLoad = lastLoad.AddDays(-5); //дату на день назад. тут на 5 дней
+                //var ofk = tmp.GetCursDynamic(prevLoad, lastLoad, codeGetter["978"]); //код евро
+                //DataTable dynamicKurse = ofk.Tables["ValuteCursDynamic"];
+                ////Таблица динамики: 0-время, 1-iso код, 2-какой-то номер, 3-текущий курс            
+                //changed = double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-1][3].ToString()) -
+                //          double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-2][3].ToString()); //изменение за день
+                /////////////////////////////////
                 #endregion
+
                 // Vname - Vcurs ;Vnom, !Vcode!, VchCode
                 DataTable currentKurse = getvalutes.Tables["ValuteCursOnDate"];
 
