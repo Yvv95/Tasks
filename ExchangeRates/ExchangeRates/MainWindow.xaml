@@ -136,17 +136,28 @@
                    Foreground="White"
                    Width="205"
                    FontWeight="Bold" />
-        
-                <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 0, 30, 0">
+            <ComboBox x:Name="changingBox"
+                      Style="{DynamicResource ComboBoxStyle1}"
+                      Margin="194,2,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="top"
+                      FontFamily="Brush Script MT"
+                      FontSize="14"
+                      Background="{x:Null}"
+                      Width="Auto"
+                      SelectionChanged="changingBox_SelectionChanged"></ComboBox>
+
+            <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 0, 30, 0">
                 <TextBox x:Name="lastUpdate"
                          HorizontalAlignment="Right"
                          Height="30"
+                         FontFamily="Brush Script MT"
                          
                          Text="Обновление..."
                          VerticalAlignment="Top"
                          SelectionBrush="{x:Null}"
                          Background="{x:Null}"
-                         Foreground="#FFB01212"
+                         Foreground="White"
                          BorderBrush="{x:Null}"
                          IsEnabled="False"
                          FontSize="15"

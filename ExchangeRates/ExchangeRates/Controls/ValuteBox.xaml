@@ -43,9 +43,16 @@
                FontSize="20"
                HorizontalContentAlignment="Right"
                HorizontalAlignment="Right"
-               Margin="0,70,0,15"
+               Margin="0,75,0,10"
                Width="90"
                Height="35"
                FontWeight="Bold" />
+        <Label x:Name="changingLabel"
+               Content="{Binding Path=Changing}"
+               Foreground="#FFFFFF"
+               FontSize="16"
+               HorizontalAlignment="Right"
+               Margin="0,55,0,0"
+               VerticalAlignment="Top" />
     </Grid>
 </UserControl>

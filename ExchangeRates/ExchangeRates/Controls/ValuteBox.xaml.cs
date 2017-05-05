@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace ExchangeRates
 {
@@ -21,18 +22,23 @@ namespace ExchangeRates
     /// </summary>
     public partial class ValuteBox : UserControl
     {
-        public ValuteBox(Valutes toShow)
+        public ValuteBox(Valutes toShow, bool rose)
         {
             InitializeComponent();          
             nameBox.DataContext = toShow;
-            nameBox.MaxWidth = 100;
-            nameBox.MaxHeight = 50;
+            image.DataContext = toShow;
+            changingLabel.DataContext = toShow;
             kurseBox.DataContext = toShow;
 
-            image.DataContext = toShow;
+            if (rose)
+                changingLabel.Foreground = Brushes.Green;
+            else
+            changingLabel.Foreground = Brushes.Red;
 
-            image.Stretch = Stretch.Fill;
-    
+
+            nameBox.MaxWidth = 100;
+            nameBox.MaxHeight = 50;         
+            image.Stretch = Stretch.Fill;  
         }        
     }
 }

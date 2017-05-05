@@ -23,9 +23,7 @@ using System.Windows.Threading;
 using ExchangeRates.Controls;
 
 //ToDo
-//сделать графики в dynamic
-//разницу в курсе находить перебором - подгружать за один день. если одна строка, то за два дня, и т.д.
-
+//приложение стоит при загрузке нового диапазона дат
 
 namespace ExchangeRates
 {
@@ -34,8 +32,11 @@ namespace ExchangeRates
         public TabChanger tabs = new TabChanger();
         private bool loading = true;
         private bool wasLoaded = false; //чтобы при первой загрузке не было пусто
+        private bool codesLoaded = false;
         BackgroundWorker bw = new BackgroundWorker();//для загрузки курса в другом потоке
-
+        private byte selectedDates = 1;//1-день, 2-неделя, 3-месяц, 4-год
+        Dictionary<string, string> getWorldCode = new Dictionary<string, string>();
+        private int period = 1;
         public MainWindow()
         {
             //события для воркера
@@ -53,72 +54,12 @@ namespace ExchangeRates
             secondL.DataContext = tabs;
             thirdL.DataContext = tabs;
             fourthL.DataContext = tabs;
-
+            changingBox.Items.Add("День");
+            changingBox.Items.Add("Неделя");
+            changingBox.Items.Add("Месяц");
+            changingBox.Items.Add("Квартал");
+            changingBox.Items.Add("Год");
             bw.RunWorkerAsync();
-           
-            #region old
-            //var tmp = new CBRFServices.DailyInfoSoapClient();
-            //try
-            //{
-            //    tmp.Open();
-            //    // var xml = tmp.BiCurBacket(); //tables - >result view ->Rows->...           
-            //    DateTime lastLoad = tmp.GetLatestDateTime();
-            //    var getvalutes = tmp.GetCursOnDate(lastLoad);
-            //    Thread.Sleep(2000);
-
-
-            //    ////////////////////////////////
-            //    //для динамики
-            //    double changed = 0;
-            //    DataSet DSC = (System.Data.DataSet)tmp.EnumValutes(false); //Получаем список валют
-            //    System.Data.DataTable tbl = DSC.Tables["EnumValutes"]; //получаем саму таблицу со списком валют
-            //    Dictionary<string, string> codeGetter = new Dictionary<string, string>();
-            //    //словарь - для получения кода валюты по другому её коду
-            //    for (int i = 0; i < tbl.Rows.Count; i++)
-            //    {
-            //        if (!codeGetter.ContainsKey(tbl.Rows[i]["VnumCode"].ToString().Trim()))
-            //            codeGetter.Add(tbl.Rows[i]["VnumCode"].ToString().Trim(), tbl.Rows[i]["Vcode"].ToString().Trim());
-            //        //заполнили словарь
-            //    }
-            //    DateTime prevLoad = lastLoad.AddDays(-5); //дату на день назад. тут на 5 дней
-            //    var ofk = tmp.GetCursDynamic(prevLoad, lastLoad, codeGetter["978"]); //код евро
-            //    DataTable dynamicKurse = ofk.Tables["ValuteCursDynamic"];
-            //    //Таблица динамики: 0-время, 1-iso код, 2-какой-то номер, 3-текущий курс            
-            //    changed = double.Parse(dynamicKurse.Rows[1][3].ToString()) -
-            //              double.Parse(dynamicKurse.Rows[0][3].ToString()); //изменение за день
-            //    /////////////////////////////
-
-
-            //    // Vname - Vcurs ;Vnom, !Vcode!, VchCode
-            //    DataTable currentKurse = getvalutes.Tables["ValuteCursOnDate"];
-            //    lastUpdate.Text = "Курс на " + lastLoad.ToShortDateString();
-
-            //    for (int i = 0; i < currentKurse.Rows.Count; i++)
-            //    {
-            //        ValuteHelper.ValList.Add(Int32.Parse(currentKurse.Rows[i]["Vcode"].ToString()),
-            //            new Valutes(currentKurse.Rows[i]["Vname"].ToString().TrimEnd(),
-            //                currentKurse.Rows[i]["Vcurs"].ToString(),
-            //                Int32.Parse(currentKurse.Rows[i]["Vcode"].ToString()),
-            //                currentKurse.Rows[i]["VchCode"].ToString().TrimEnd(), false));
-            //        ValuteHelper.ConvList.Add(currentKurse.Rows[i]["Vname"].ToString().TrimEnd(),
-            //            new ValuteConverter(currentKurse.Rows[i]["Vname"].ToString().TrimEnd(),
-            //                Double.Parse(currentKurse.Rows[i]["Vcurs"].ToString())));
-            //    }
-            //    ValuteHelper.ValList[978].Checked = true; //для примера
-            //    ValuteHelper.ValList[840].Checked = true;
-            //    updateValues();
-
-            //}
-            //catch (Exception e)
-            //{
-
-            //    MessageBox.Show("Ошибка при работе с сервисом. Подробнее: \n" + e.ToString());
-            //}
-            //finally
-            //{
-            //    tmp.Close();
-            //}
-            #endregion
         }
 
         private void bw_CompleteWork(object sender, RunWorkerCompletedEventArgs e)//событие завершения работы
@@ -140,11 +81,14 @@ namespace ExchangeRates
 
         private void bw_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)//сам воркер
         {
+            
+            if (!codesLoaded)
+            getWorldCode = loadCodes();
             openLoad();
-        }       
+        }
+               
         private void openLoad()//сама загрузка с сервиса
         {
-           // Thread.Sleep(5000);
             var tmp = new CBRFServices.DailyInfoSoapClient();
             try
             {
@@ -153,31 +97,6 @@ namespace ExchangeRates
 
                 DateTime lastLoad = tmp.GetLatestDateTime();
                 var getvalutes = tmp.GetCursOnDate(lastLoad);
-
-
-                #region Загрузчик валют за предыдущий период 
-                //////////////////////////////////
-                //////для динамики
-                //double changed = 0;
-                //DataSet DSC = (System.Data.DataSet)tmp.EnumValutes(false); //Получаем список валют
-                //System.Data.DataTable tbl = DSC.Tables["EnumValutes"]; //получаем саму таблицу со списком валют
-                //Dictionary<string, string> codeGetter = new Dictionary<string, string>();
-                ////словарь - для получения кода валюты по другому её коду
-                //for (int i = 0; i < tbl.Rows.Count; i++)
-                //{
-                //    if (!codeGetter.ContainsKey(tbl.Rows[i]["VnumCode"].ToString().Trim()))
-                //        codeGetter.Add(tbl.Rows[i]["VnumCode"].ToString().Trim(), tbl.Rows[i]["Vcode"].ToString().Trim());
-                //    //заполнили словарь
-                //}
-                //DateTime prevLoad = lastLoad.AddDays(-5); //дату на день назад. тут на 5 дней
-                //var ofk = tmp.GetCursDynamic(prevLoad, lastLoad, codeGetter["978"]); //код евро
-                //DataTable dynamicKurse = ofk.Tables["ValuteCursDynamic"];
-                ////Таблица динамики: 0-время, 1-iso код, 2-какой-то номер, 3-текущий курс            
-                //changed = double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-1][3].ToString()) -
-                //          double.Parse(dynamicKurse.Rows[dynamicKurse.Rows.Count-2][3].ToString()); //изменение за день
-                /////////////////////////////////
-                #endregion
-
                 // Vname - Vcurs ;Vnom, !Vcode!, VchCode
                 DataTable currentKurse = getvalutes.Tables["ValuteCursOnDate"];
 
@@ -208,12 +127,7 @@ namespace ExchangeRates
                         {
                             ValuteHelper.ValList[Int32.Parse(currentKurse.Rows[i]["Vcode"].ToString())]
                                 .updateExchange(currentKurse.Rows[i]["Vcurs"].ToString());
-
-                            //ValuteHelper.ValList[Int32.Parse(currentKurse.Rows[i]["Vcode"].ToString())] =
-                            //    ValuteHelper.ValList[Int32.Parse(currentKurse.Rows[i]["Vcode"].ToString())];
-
-                            ValuteHelper.ConvList[currentKurse.Rows[i]["Vname"].ToString().TrimEnd()].updateExchange(Double.Parse(currentKurse.Rows[i]["Vcurs"].ToString()));
-                                
+                            ValuteHelper.ConvList[currentKurse.Rows[i]["Vname"].ToString().TrimEnd()].updateExchange(Double.Parse(currentKurse.Rows[i]["Vcurs"].ToString()));                                
                         }
                     }
                 }
@@ -232,21 +146,67 @@ namespace ExchangeRates
             {
                 tmp.Close();
             }
+
         }
 
-
-        
+        public double loadMiddleValue(int days, string code, string curValue)//загрузка курсов по датам(для графика)
+        {
+            double counts = 0;
+            int nums = 0;
+            var tmp = new CBRFServices.DailyInfoSoapClient();
+            try
+            {
+                tmp.Open();
+                DateTime lastLoad = tmp.GetLatestDateTime();
+                DateTime prevLoad = lastLoad.AddDays(-days);
+                var ofk = tmp.GetCursDynamic(prevLoad, lastLoad, getWorldCode[code]); //код евро 978
+                DataTable dynamicKurse = ofk.Tables["ValuteCursDynamic"];
+                //Таблица динамики: 0-время, 1-iso код, 2-какой-то номер, 3-курс            
+                if (dynamicKurse.Rows.Count > 1)
+                    for (int i = 0; i < (dynamicKurse.Rows.Count-1); i++)
+                    {
+                        counts += double.Parse(dynamicKurse.Rows[i][3].ToString());
+                        nums++;
+                    }
+                else
+                    MessageBox.Show("Не было курса в выбранный период!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка при работе с сервисом. Подробнее: \n" + e.ToString());
+            }
+            finally
+            {
+                tmp.Close();
+            }
+            if (nums < 1)
+                nums = 1;
+            return   double.Parse(curValue)- (counts / (double)nums);
+        }
 
         private void updateValues()//загрузка на грид отмеченных валют
         {
             lastUpdate.Text = "Курс на " + ValuteHelper.whenLoaded;
             valutesPanel.Children.Clear();
+            bool rises = false;
+            double changed = 0;
             foreach (Valutes toShow in ValuteHelper.ValList.Values)
             {
                 if (toShow.Checked)
                 {
-                    var newValute = new ValuteBox(toShow)
+                    changed = loadMiddleValue(period, toShow.worldName.ToString(), toShow.Exchange);
+                    if (changed > 0)
                     {
+                        rises = true;
+                        toShow.Changing = "+" + Math.Round(changed, 2).ToString();
+                    }
+                    else
+                    {
+                        rises = false;
+                        toShow.Changing = Math.Round(changed, 2).ToString();
+                    }
+                    var newValute = new ValuteBox(toShow, rises)
+                    {                                                
                         //здесь написать методы для изменения свойств
                     };
                     valutesPanel.Children.Add(newValute);
@@ -254,6 +214,29 @@ namespace ExchangeRates
             }
         }
 
+        public Dictionary<string, string> loadCodes()//загрузка кодов
+        {
+            var loader = new CBRFServices.DailyInfoSoapClient();
+            Dictionary<string, string> codesList = new Dictionary<string, string>();
+            try
+            {
+                loader.Open();
+                DataSet DSC = (System.Data.DataSet)loader.EnumValutes(false); //Получаем список валют
+                System.Data.DataTable tbl = DSC.Tables["EnumValutes"]; //получаем саму таблицу со списком валют
+                for (int i = 0; i < tbl.Rows.Count; i++)
+                    if (!codesList.ContainsKey(tbl.Rows[i]["VnumCode"].ToString().Trim()))
+                        codesList.Add(tbl.Rows[i]["VnumCode"].ToString().Trim(), tbl.Rows[i]["Vcode"].ToString().Trim());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка:" + e.ToString());
+            }
+            finally { loader.Close(); }
+            if (codesList.Count < 1)
+                MessageBox.Show("Не удалось загрузить коды");
+            codesLoaded = true;
+            return codesList;
+        }
         private void reloadButton_Click(object sender, RoutedEventArgs e)//обновить курс
         {
             valutesPanel.Children.Clear();
@@ -264,6 +247,7 @@ namespace ExchangeRates
             bw.WorkerSupportsCancellation = true;
             bw.RunWorkerAsync();
         }
+
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -312,8 +296,31 @@ namespace ExchangeRates
         {
         }
 
-        
-
-        
+        private void changingBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (changingBox.SelectedIndex)
+            {
+                case 0:
+                    period = 1;
+                    bw.RunWorkerAsync();
+                    break;
+                case 1:
+                    period = 7;
+                    bw.RunWorkerAsync();
+                    break;
+                case 2:
+                    period = 30;
+                    bw.RunWorkerAsync();
+                    break;
+                case 3:
+                    period = 92;
+                    bw.RunWorkerAsync();
+                    break;
+                case 4:
+                    period = 365;
+                    bw.RunWorkerAsync();
+                    break;
+            }
+        }
     }
 }

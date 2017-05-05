@@ -11,7 +11,7 @@
 
     <Grid  VerticalAlignment="Stretch"
            Background="#FF1E223B"
-           MinHeight="300">
+           MinHeight="300" Name ="dynamicGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50">
             </RowDefinition>
@@ -70,13 +70,13 @@
                 <xctk:Area x:Name="_area1" Title="Даты">
                     <!--отвечает за выделение точек на осях-->
                     <xctk:Area.XAxis>
-                        <xctk:Axis ShowTickLabels="false"
+                        <xctk:Axis ShowTickLabels="False"
                                    ShowAxisLabel="True"
                                    LabelsType="DateTime"
                                    GraduationMode="Manual"
                                    Width="200"
-                                   Title="График"
-                                   ShowArrow="False"
+                                   Title="Дата"
+                                   ShowArrow="True"
                                    ShowAxis="True"
                                    ShowGridLines="True"
                                    ShowTicks="True"
@@ -85,14 +85,15 @@
                                    AxisLabelsLayout="ShowToFit"
                                    BorderThickness="1"
                                    Foreground="Black"
-                                   FontStyle="Italic" />
+                                   FontStyle="Italic" 
+                                   />
                     </xctk:Area.XAxis>
                     <xctk:Area.YAxis>
                         <xctk:Axis ShowTickLabels="True"
                                    ShowAxisLabel="True"
                                    AxisLabelsLayout="ShowToFit"
                                    Width="200"
-                                   Title="Цена"
+                                   Title="Курс"
                                    TitleMargin="10"
                                    LabelsType="Numeric" />
                     </xctk:Area.YAxis>
