@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using CBRFService;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using WebApplication1.Models;
+using WebApplication1.XmlClasses;
+
+// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace WebApplication1.Controllers
+{
+    public class SelectController : Controller
+    {
+        [HttpPost]
+        public ActionResult LoadCurses(string valName, string period)
+        {
+            int daysMinus = 7;
+            switch (period)
+            {
+                case "Неделя":
+                    daysMinus = 7;
+                    break;
+                case "Месяц":
+                    daysMinus = 31;
+                    break;
+                case "Квартал":
+                    daysMinus = 92;
+                    break;
+                case "Год":
+                    daysMinus = 365;
+                    break;
+            }
+            var loader = new CBRFService.DailyInfoSoapClient(DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap);
+            DynamicValuteCollection dynamicVals = new DynamicValuteCollection();
+
+            try
+            {
+                loader.OpenAsync();
+                var _cursTable4 =
+                    loader.GetCursDynamicXMLAsync(new GetCursDynamicXMLRequest(DateTime.Now.AddDays(-daysMinus), DateTime.Now,
+                        Startup.codesList[valName])).Result;
+                string c = _cursTable4.GetCursDynamicXMLResult.ToString();
+                using (TextReader _tmp = new StringReader(c))
+                {
+                    XmlSerializer serializer2 = new XmlSerializer(typeof(DynamicValuteCollection));
+                    dynamicVals = (DynamicValuteCollection)
+                        serializer2.Deserialize(_tmp);
+                }
+                loader.CloseAsync();
+            }
+            catch(Exception e)
+            {Console.WriteLine(e); }
+           // Dictionary<string, string> pointsList = new Dictionary<string, string>();
+            List <DayCursePairs> pointList = new List<DayCursePairs>();
+
+            //foreach (ValuteCursDynamic _point in dynamicVals.ValsList)
+            //{
+            
+            for (int i = dynamicVals.ValsList.Count()-1; i >=0 ; i--)
+            {
+                DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
+                dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
+                // pointsList.Add(_point.CursDate, _point.Vcurs);
+                pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
+            }
+            //}
+            
+            return new JsonResult(pointList);
+        }
+    }
+}

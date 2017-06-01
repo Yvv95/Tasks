@@ -1,0 +1,100 @@
+﻿@using WebApplication1.Models
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<html>
+<head>
+    <title>Настройки</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selected = new Array();
+            //$(document).on("click", ".chkitem", function (e) {
+            $(document).on("change", "input[type=checkbox]", function (e) {
+                var chk = $(this).attr("name");
+                var chkVal = $(this).attr("value");
+                alert(chk);
+                selected.push(this.value);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ChangeCheckbox", "Check")",
+                    data: { "name": chk },
+                    async: false,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    dataType: 'html',
+                    error: function (data) {
+                        alert("fail");
+                    }
+                });
+
+
+            });
+        });
+    </script>
+
+    <style>
+        .design {
+            display: inline-block; /* Строчно-блочный элемент */
+            padding: 5px 20px; /* Добавляем поля */
+            text-decoration: none; /* Убираем подчёркивание у ссылки */
+            cursor: pointer; /* Курсор в виде руки */
+            background: #deefff; /* Фон для браузеров, не поддерживающих градиент */
+            /* Градиент */
+            background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede));
+            background: -webkit-linear-gradient(top, #deefff 0%,#98bede 100%);
+            background: -o-linear-gradient(top, #deefff 0%,#98bede 100%);
+            background: -ms-linear-gradient(top, #deefff 0%,#98bede 100%);
+            background: linear-gradient(top, #deefff 0%,#98bede 100%);
+            border-radius: 10px; /* Скругляем уголки */
+            border: 1px solid #008; /* Добавляем синюю рамку */
+            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
+            color: #2c539e; /* Цвет текста и ссылки */
+        }
+    </style>
+
+</head>
+
+<body>
+<center>
+    <hr>
+    <a href="/Home/Index/" class="design">Начальная страница</a>
+    <a href="/Home/Dynamic/" class="design">График</a>
+    <a href="/Home/Convert/" class="design">Конвертер</a>
+    <a href="/Home/Settings/" class="design">Настройки</a>
+    <hr>
+</center>
+
+<h3>Выбор валют для отображения</h3>
+
+    <table>
+        <tr>
+           
+            <td></td>
+            <td><b>Валюта</b></td>
+            @*<td><b>Стоимость</b></td>
+            <td><b>Аббревиатура</b></td>
+            <td><b>Имя</b></td>*@
+        </tr>
+        @foreach (Valutes val in (List<Valutes>)ViewBag.Vals)
+            {
+            <tr>
+                <td>
+                    @*<input type="checkbox" name="@_val.Name" class="chkitem"/>*@
+                    @Html.CheckBox(val.Name, val.IsChecked)
+                </td>
+                <td>@val.Name</td>
+                @*<td>@val.Exchange</td>
+                <td>@val.ChCode</td>
+                <td>@val.WorldName</td>*@
+            </tr>
+        }
+    </table>
+</body>
+
+</html>
