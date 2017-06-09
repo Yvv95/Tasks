@@ -14,3 +14,5 @@
 
 г)Графики 
  ### 3)ASP.Net Core
+а)MVC
+б)JQuery
