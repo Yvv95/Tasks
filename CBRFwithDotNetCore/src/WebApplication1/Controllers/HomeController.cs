@@ -12,7 +12,6 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         //отображение отмеченных валют
-       // public bool wasLoaded = false;
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("loaded") == null)
@@ -31,19 +30,13 @@ namespace WebApplication1.Controllers
 
             ValutesFunctions toSend = Startup.vals;
             for (int i = 0; i < toSend.ValsList.Count; i++)
-            // foreach (Valutes _valute in Startup.vals.GetAll())
             {              
-                if (HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()) != null)
-                {
-                    // _valute.IsChecked = Boolean.Parse(HttpContext.Session.GetString(_valute.Name.Trim()));
+                if (HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()) != null)        
                     toSend.ValsList[i].IsChecked =
-                        Boolean.Parse(HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()));
-                }
+                        Boolean.Parse(HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()));            
             }
             ViewBag.LoadDate = Startup.lastLoadDate;
-            //ViewBag.Vals = (List<Valutes>)Startup.vals.ValsList.Where(e=>e.IsChecked);
             ViewBag.Vals = (Dictionary<string, string>)toSend.getChecked();
-
             return View();
         }
 
@@ -52,11 +45,9 @@ namespace WebApplication1.Controllers
         {
             ValutesFunctions toSend = Startup.vals;
             for (int i = 0; i < toSend.ValsList.Count; i++)
-            // foreach (Valutes _valute in Startup.vals.GetAll())
             {
                 if (HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()) != null)
                 {
-                    // _valute.IsChecked = Boolean.Parse(HttpContext.Session.GetString(_valute.Name.Trim()));
                     toSend.ValsList[i].IsChecked =
                         Boolean.Parse(HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()));
                 }
@@ -65,7 +56,6 @@ namespace WebApplication1.Controllers
             ViewBag.Vals = toSend.ValsList;
             return View();
         }
-
         public IActionResult Convert()
         {
             ViewBag.SelectList = (List<string>)Startup.vals.getNames();
@@ -73,13 +63,12 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-       
+
         public IActionResult Dynamic()
         {
             ViewBag.SelectList = (List<string>)Startup.vals.getNames();
 
             return View();
         }
-
     }
 }

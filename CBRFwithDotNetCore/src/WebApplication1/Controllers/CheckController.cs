@@ -12,12 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class CheckController : Controller
     {
-        // GET: /<controller>/
-        //public IActionResult Check()
-        //{
 
-        //    return View();
-        //}
         [HttpPost]
         public ActionResult ChangeCheckbox(string name)
         {
@@ -30,12 +25,11 @@ namespace WebApplication1.Controllers
                 HttpContext.Session.SetString(name.Trim(), _result.ToString());
                 return Json(new {resultMessage = "Значение " + name + " изменено на " + _result});
             }
-            //если не существует, то заполняем сессию фолсами
+            //если не существует, то заполняем сессию значениями false
             foreach (Valutes _valute in Startup.vals.ValsList)
             {
                 HttpContext.Session.SetString(_valute.Name.Trim(), false.ToString());
-            }
-            //}
+            }          
             return Json(new {resultMessage = "Не удалось найти валюту " + name});
         }
 

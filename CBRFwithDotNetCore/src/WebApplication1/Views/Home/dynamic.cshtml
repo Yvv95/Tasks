@@ -1,19 +1,24 @@
 ﻿@using WebApplication1.Models
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
 }
 <html>
 <head>
     <title>Изменение курса валют по датам</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
         $(document).ready(function () {
             $('#periods').change(function () {
+                if ($('#valute').val() == 00) return false;
+                if ($('#periods').val() == 0) return false;
                 var _per = $(periods).find('option:selected').val();
                 var _vals = $(valute).find('option:selected').val();
                 var target = $("#results");
+                //var data_array = ['Дата', 'Стоимость'];
+                //var data_chart = new google.visualization.DataTable();
+                var getdates = [];
+                var getcurses = [];
+
                 target.empty();
                 $.ajax({
                     type: "POST",
@@ -24,31 +29,61 @@
                     },
                     async: false,
                     success: function (data) {
-                        //alert(data);
                         var json = $.parseJSON(data);
                         target.append("<table border=\"1\" cellpadding=\"7\" cellspacing=\"0\">");
                         target.append("<tr><td align=\"center\"><ins><b>Дата</b></ins></td><td align=\"center\"><ins><b>Стоимость в рублях</b></ins></br></td></tr>");
                         for (var i = 0; i < json.length; ++i) {
                             target.append("<tr><td align=\"center\">" + json[i].day + "</td><td align=\"center\">"
-                        + json[i].curse + "</td></tr>");
+                                + json[i].curse + "</td></tr>");
+                            getdates.push(json[i].day);
+                            getcurses.push(json[i].curse);
                         }
                         target.append("</table>");
+
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var _data=[];
+                            //var Header= ['Дата', 'Курс'];
+                            //_data.push(Header); 
+                            _data = [['Дата', 'Курс']];
+                            for (var i = 0; i < getdates.length; i++) {
+                                var temp = [];
+                                temp.push( getdates[i]);
+                                temp.push( getcurses[i]);
+                                _data.push(temp);
+                            }
+                            var dataa = new google.visualization.arrayToDataTable(_data);
+                            var options = {
+                                title: 'Курс валют',
+                                hAxis: { title: 'Дата', titleTextStyle: { color: '#333' } },
+                                vAxis: { minValue: 0 }
+                            };
+                                   var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+                            chart.draw(dataa, options);
+                        }
                     },
                     dataType: 'html',
                     error: function (data) {
                         alert("Ошибка при запросе:" + data);
                     }
                 });
-
             });
         });
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#valute').change(function () {
+                if ($('#valute').val() == 00) return false;
+                if ($('#periods').val() == 0) return false;
                 var _per = $(periods).find('option:selected').val();
                 var _vals = $(valute).find('option:selected').val();
                 var target = $("#results");
+                //var data_array = ['Дата', 'Стоимость'];
+                //var data_chart = new google.visualization.DataTable();
+                var getdates = [];
+                var getcurses = [];
+
                 target.empty();
                 $.ajax({
                     type: "POST",
@@ -59,43 +94,85 @@
                     },
                     async: false,
                     success: function (data) {
-                        //alert(data);
                         var json = $.parseJSON(data);
                         target.append("<table border=\"1\" cellpadding=\"7\" cellspacing=\"0\">");
                         target.append("<tr><td align=\"center\"><ins><b>Дата</b></ins></td><td align=\"center\"><ins><b>Стоимость в рублях</b></ins></br></td></tr>");
                         for (var i = 0; i < json.length; ++i) {
                             target.append("<tr><td align=\"center\">" + json[i].day + "</td><td align=\"center\">"
-                        + json[i].curse + "</td></tr>");
+                                + json[i].curse + "</td></tr>");
+                            getdates.push(json[i].day);
+                            getcurses.push(json[i].curse);
                         }
                         target.append("</table>");
+
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var _data=[];
+                            //var Header= ['Дата', 'Курс'];
+                            //_data.push(Header);
+                            _data = [['Дата', 'Курс']];
+                            for (var i = 0; i < getdates.length; i++) {
+                                var temp = [];
+                                temp.push( getdates[i]);
+                                temp.push( getcurses[i]);
+                                _data.push(temp);
+                            }
+                            var dataa = new google.visualization.arrayToDataTable(_data);
+                            var options = {
+                                title: 'Курс валют',
+                                hAxis: { title: 'Дата', titleTextStyle: { color: '#333' } },
+                                vAxis: { minValue: 0 }
+                            };
+                                   var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+                            chart.draw(dataa, options);
+                        }
                     },
                     dataType: 'html',
                     error: function (data) {
                         alert("Ошибка при запросе:" + data);
                     }
                 });
-
             });
         });
     </script>
+
+
+
     <style>
         .design {
             display: inline-block; /* Строчно-блочный элемент */
             padding: 5px 20px; /* Добавляем поля */
             text-decoration: none; /* Убираем подчёркивание у ссылки */
             cursor: pointer; /* Курсор в виде руки */
-            background: #deefff; /* Фон для браузеров, не поддерживающих градиент */
-            /* Градиент */
-            background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede));
-            background: -webkit-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: -o-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: -ms-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: linear-gradient(top, #deefff 0%,#98bede 100%);
             border-radius: 10px; /* Скругляем уголки */
             border: 1px solid #008; /* Добавляем синюю рамку */
             font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #2c539e; /* Цвет текста и ссылки */
+            color: #B6B8DB; /* Цвет текста и ссылки */
+        }
+
+        .selected {
+            display: inline-block; /* Строчно-блочный элемент */
+            padding: 5px 20px; /* Добавляем поля */
+            text-decoration: none; /* Убираем подчёркивание у ссылки */
+            cursor: pointer; /* Курсор в виде руки */
+            border-radius: 10px; /* Скругляем уголки */
+            border: 1px solid #008; /* Добавляем синюю рамку */
+            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
+            color: #FBDA4D; /* Цвет текста и ссылки */
+        }
+    </style>
+    <style>
+        body {
+            background: #1E223B;
+            color: #ffffff;
+        }
+
+        hr {
+            border: none;
+            color: #292F4E;
+            background-color: #292F4E;
+            height: 1px;
         }
     </style>
 </head>
@@ -104,7 +181,7 @@
     <center>
         <hr>
         <a href="/Home/Index/" class="design">Начальная страница</a>
-        <a href="/Home/Dynamic/" class="design">График</a>
+        <a href="/Home/Dynamic/" class="selected">График</a>
         <a href="/Home/Convert/" class="design">Конвертер</a>
         <a href="/Home/Settings/" class="design">Настройки</a>
         <hr>
@@ -113,13 +190,15 @@
     <h3>Изменение курса валют по датам</h3>
 
     <select id="valute" name="valSelection">
-        @foreach (string val in (List<string>) ViewBag.SelectList)
+        <option value="00">---Выберите валюту---</option>
+        @foreach (string val in (List<string>)ViewBag.SelectList)
         {
             <option>@val</option>
         }
     </select>
 
     <select id="periods" name="periodSelection">
+        <option value="0">---Выберите период---</option>
         <option>Неделя</option>
         <option>Месяц</option>
         <option>Квартал</option>
@@ -128,6 +207,7 @@
 
     @*Сюда выводятся даты с курсами*@
     <div id="results"></div>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
 
 </body>
 </html>

@@ -15,7 +15,7 @@
             $(document).on("change", "input[type=checkbox]", function (e) {
                 var chk = $(this).attr("name");
                 var chkVal = $(this).attr("value");
-                alert(chk);
+                //alert(chk);
                 selected.push(this.value);
 
                 $.ajax({
@@ -24,7 +24,7 @@
                     data: { "name": chk },
                     async: false,
                     success: function (data) {
-                        alert(data);
+                        //alert(data);
                     },
                     dataType: 'html',
                     error: function (data) {
@@ -43,43 +43,51 @@
             padding: 5px 20px; /* Добавляем поля */
             text-decoration: none; /* Убираем подчёркивание у ссылки */
             cursor: pointer; /* Курсор в виде руки */
-            background: #deefff; /* Фон для браузеров, не поддерживающих градиент */
-            /* Градиент */
-            background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede));
-            background: -webkit-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: -o-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: -ms-linear-gradient(top, #deefff 0%,#98bede 100%);
-            background: linear-gradient(top, #deefff 0%,#98bede 100%);
             border-radius: 10px; /* Скругляем уголки */
             border: 1px solid #008; /* Добавляем синюю рамку */
             font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #2c539e; /* Цвет текста и ссылки */
+            color: #B6B8DB; /* Цвет текста и ссылки */
+        }
+        .selected {
+            display: inline-block; /* Строчно-блочный элемент */
+            padding: 5px 20px; /* Добавляем поля */
+            text-decoration: none; /* Убираем подчёркивание у ссылки */
+            cursor: pointer; /* Курсор в виде руки */
+            border-radius: 10px; /* Скругляем уголки */
+            border: 1px solid #008; /* Добавляем синюю рамку */
+            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
+            color: #62D370; /* Цвет текста и ссылки */
         }
     </style>
+    <style>
+        body {
+            background: #1E223B;
+            color: #ffffff;
+        }
+        hr {
+    border: none; 
+    color: #292F4E;
+    background-color: #292F4E; 
+    height: 1px;
+   }
 
+       
+    </style>
 </head>
 
 <body>
-<center>
-    <hr>
-    <a href="/Home/Index/" class="design">Начальная страница</a>
-    <a href="/Home/Dynamic/" class="design">График</a>
-    <a href="/Home/Convert/" class="design">Конвертер</a>
-    <a href="/Home/Settings/" class="design">Настройки</a>
-    <hr>
-</center>
+    <center>
+        <hr>
+        <a href="/Home/Index/" class="design">Начальная страница</a>
+        <a href="/Home/Dynamic/" class="design">График</a>
+        <a href="/Home/Convert/" class="design">Конвертер</a>
+        <a href="/Home/Settings/" class="selected">Настройки</a>
+        <hr>
+    </center>
 
-<h3>Выбор валют для отображения</h3>
-
+    <h3>Отображаемые валюты</h3>
     <table>
-        <tr>
-           
-            <td></td>
-            <td><b>Валюта</b></td>
-            @*<td><b>Стоимость</b></td>
-            <td><b>Аббревиатура</b></td>
-            <td><b>Имя</b></td>*@
+        <tr>          
         </tr>
         @foreach (Valutes val in (List<Valutes>)ViewBag.Vals)
             {
@@ -89,9 +97,6 @@
                     @Html.CheckBox(val.Name, val.IsChecked)
                 </td>
                 <td>@val.Name</td>
-                @*<td>@val.Exchange</td>
-                <td>@val.ChCode</td>
-                <td>@val.WorldName</td>*@
             </tr>
         }
     </table>

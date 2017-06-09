@@ -1,5 +1,5 @@
---temp-output:C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\
---out:C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\WebApplication1.dll
+--temp-output:C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\
+--out:C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\WebApplication1.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_0
@@ -176,19 +176,22 @@
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.XmlSerializer\4.0.11\ref\netstandard1.3\System.Xml.XmlSerializer.dll
---resource:"C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Program.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Startup.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\CheckController.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\HomeController.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\SelectController.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\ConvertValutes.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\DayCursePairs.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\Valutes.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Service References\CBRFService\Reference.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\IValutesFunctions.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\LoadValutes.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\ValutesFunctions.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\EnumValuteXmlClass.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\ValuteDynamicXmlClass.cs
-C:\Users\Yusupov.V\documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\ValuteXmlClass.cs
+--resource:"C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Program.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Startup.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\CheckController.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\ConvertController.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\HomeController.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Controllers\SelectController.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\ConvertValutes.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\DayCursePairs.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\ValuteConverter.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\ValuteListConverter.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Models\Valutes.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\Service References\CBRFService\Reference.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\IValutesFunctions.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\LoadValutes.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\ValutesApi\ValutesFunctions.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\EnumValuteXmlClass.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\ValuteDynamicXmlClass.cs
+C:\Users\Yusupov.V\Documents\visual studio 2015\Projects\WebApplication1\src\WebApplication1\XmlClasses\ValuteXmlClass.cs

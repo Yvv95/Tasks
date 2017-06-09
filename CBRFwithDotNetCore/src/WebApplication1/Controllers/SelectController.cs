@@ -10,8 +10,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WebApplication1.Models;
 using WebApplication1.XmlClasses;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApplication1.Controllers
 {
     public class SelectController : Controller
@@ -55,12 +53,8 @@ namespace WebApplication1.Controllers
             }
             catch(Exception e)
             {Console.WriteLine(e); }
-           // Dictionary<string, string> pointsList = new Dictionary<string, string>();
             List <DayCursePairs> pointList = new List<DayCursePairs>();
 
-            //foreach (ValuteCursDynamic _point in dynamicVals.ValsList)
-            //{
-            
             for (int i = dynamicVals.ValsList.Count()-1; i >=0 ; i--)
             {
                 DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
@@ -69,7 +63,6 @@ namespace WebApplication1.Controllers
                 pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
             }
             //}
-            
             return new JsonResult(pointList);
         }
     }

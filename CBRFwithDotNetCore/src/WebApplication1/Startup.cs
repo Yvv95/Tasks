@@ -24,28 +24,22 @@ using WebApplication1.XmlClasses;
 
 namespace WebApplication1
 {
-   
-    //сохранять отметки в сессиях. убрать статические классы, данные для страниц брать из котнролов
-
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
-
         public static Valutes val;
         public static ValutesFunctions vals;
         public static string lastLoadDate;
         public static Dictionary<string, string> codesList = new Dictionary<string, string>();
+        public static ValuteListConverter converter = new ValuteListConverter();
+
         public void ConfigureServices(IServiceCollection services)
         {
             //подключение сервисов
             services.AddTransient<TimeService>();
             services.AddMvc();
-
-           // services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
             //сессии
-            // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
-
             services.AddSession(options =>
             {
                 options.CookieName = ".Settings.Session";
@@ -57,12 +51,10 @@ namespace WebApplication1
             public string GetTime() => System.DateTime.Now.ToString("hh:mm:ss");
         }
 
-
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //сессии
             app.UseSession();
-
             loggerFactory.AddConsole();
             #region Страницы
             //чтобы просмотреть список страниц в wwwroot
@@ -81,7 +73,6 @@ namespace WebApplication1
 
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/");
@@ -128,26 +119,25 @@ namespace WebApplication1
                     if (!codesList.ContainsKey(enumValute.ValsList[i].Vname.Trim()) &&
                         (enumValute.ValsList[i].Vname != null) && (enumValute.ValsList[i].Vcode != null))
                         codesList.Add(enumValute.ValsList[i].Vname.Trim(), enumValute.ValsList[i].Vcode.Trim());
-                //codesList.Add(enumValute.ValsList[i].VnumCode.Trim(), enumValute.ValsList[i].Vcode.Trim());
             }
-            
+
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
             finally
             {
-               await loader.CloseAsync();
+                await loader.CloseAsync();
             }
 
             if (vals != null)
                 foreach (var curValue in valXML.ValsList)
                 {
                     vals.Create(curValue.Vname, curValue.Vcurs, Int32.Parse(curValue.Vcode), curValue.VchCode);
+                    converter.AddValues(curValue.Vname.Trim(), curValue.Vcurs.Trim());
                 }
         }
 
-      
         private static void settings(IApplicationBuilder app)
         {
             app.UseMvc(routes =>
@@ -181,7 +171,7 @@ namespace WebApplication1
         {
             app.Run(async context =>
             {
-                await context.Response.WriteAsync("About");
+                await context.Response.WriteAsync("Простой сервис по отображению курсов валют на основе данных ЦБРФ");
             });
         }
         private static void timeShow(IApplicationBuilder app)
