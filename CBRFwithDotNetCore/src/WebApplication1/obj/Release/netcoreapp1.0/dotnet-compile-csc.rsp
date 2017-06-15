@@ -1,14 +1,15 @@
-﻿-d:DEBUG
+﻿-d:RELEASE
 -d:TRACE
 -d:NETCOREAPP1_0
 -nowarn:CS1701
 -nowarn:CS1702
 -nowarn:CS1705
+-optimize
 -debug:full
 -nostdlib
 -nologo
-"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
--out:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\bin\Debug\netcoreapp1.0\WebApplication1.dll"
+"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Release\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
+-out:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\bin\Release\netcoreapp1.0\WebApplication1.dll"
 -r:"C:\Users\Yusupov.V\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.1.2\lib\netstandard1.3\Microsoft.AspNetCore.Antiforgery.dll"
 -r:"C:\Users\Yusupov.V\.nuget\packages\Microsoft.AspNetCore.Authorization\1.1.2\lib\netstandard1.3\Microsoft.AspNetCore.Authorization.dll"
 -r:"C:\Users\Yusupov.V\.nuget\packages\Microsoft.AspNetCore.Cors\1.1.2\lib\netstandard1.3\Microsoft.AspNetCore.Cors.dll"
@@ -172,7 +173,7 @@
 -r:"C:\Users\Yusupov.V\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\Yusupov.V\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll"
 -r:"C:\Users\Yusupov.V\.nuget\packages\System.Xml.XmlSerializer\4.0.11\ref\netstandard1.3\System.Xml.XmlSerializer.dll"
--resource:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
+-resource:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Release\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
 "C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Program.cs"
 "C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Startup.cs"
 "C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Controllers\CheckController.cs"

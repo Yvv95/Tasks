@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+using CBRFConverter.Models;
 
-//For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace WebApplication1.Controllers
+namespace CBRFConverter.Controllers
 {
     public class CheckController : Controller
     {

@@ -1,12 +1,12 @@
---temp-output:C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Debug\netcoreapp1.0\
---out:C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\bin\Debug\netcoreapp1.0\WebApplication1.dll
---define:DEBUG
+--temp-output:C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Release\netcoreapp1.0\
+--out:C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\bin\Release\netcoreapp1.0\WebApplication1.dll
+--define:RELEASE
 --define:TRACE
 --define:NETCOREAPP1_0
 --suppress-warning:CS1701
 --suppress-warning:CS1702
 --suppress-warning:CS1705
---optimize:False
+--optimize:True
 --emit-entry-point:True
 --output-name:WebApplication1
 --file-version:1.0.0.0
@@ -176,7 +176,7 @@
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll
 --reference:C:\Users\Yusupov.V\.nuget\packages\System.Xml.XmlSerializer\4.0.11\ref\netstandard1.3\System.Xml.XmlSerializer.dll
---resource:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
+--resource:"C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\obj\Release\netcoreapp1.0\WebApplication1dotnet-compile.deps.json",WebApplication1.deps.json
 C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Program.cs
 C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Startup.cs
 C:\Users\Yusupov.V\Desktop\CBRFwithDotNetCore\src\WebApplication1\Controllers\CheckController.cs

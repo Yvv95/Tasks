@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WebApplication1
+namespace CBRFConverter
 {
     //курс валют на последнюю загрузку
     public class ValuteCursOnDate

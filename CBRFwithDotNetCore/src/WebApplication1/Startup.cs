@@ -18,11 +18,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
-using WebApplication1.Models;
-using WebApplication1.ValutesApi;
-using WebApplication1.XmlClasses;
+using CBRFConverter.Models;
+using CBRFConverter.ValutesApi;
+using CBRFConverter.XmlClasses;
 
-namespace WebApplication1
+namespace CBRFConverter
 {
     public class Startup
     {
@@ -53,8 +53,10 @@ namespace WebApplication1
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseDeveloperExceptionPage();
             //сессии
             app.UseSession();
+            app.UseStaticFiles();
             loggerFactory.AddConsole();
             #region Страницы
             //чтобы просмотреть список страниц в wwwroot

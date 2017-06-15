@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WebApplication1.XmlClasses
+namespace CBRFConverter.XmlClasses
 {
     //изменение круса вылюты
     public class ValuteCursDynamic

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
-using WebApplication1.ValutesApi;
+using CBRFConverter.Models;
+using CBRFConverter.ValutesApi;
 
-namespace WebApplication1.Controllers
+namespace CBRFConverter.Controllers
 {
     public class HomeController : Controller
     {

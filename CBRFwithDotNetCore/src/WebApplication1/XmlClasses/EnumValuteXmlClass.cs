@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WebApplication1
+namespace CBRFConverter
 {
     //список валют с дополнительными полями
     public class EnumValutes

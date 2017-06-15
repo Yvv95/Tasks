@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Models;
+using CBRFConverter.Models;
 
-namespace WebApplication1.ValutesApi
+namespace CBRFConverter.ValutesApi
 {
     public interface IValutesFunctions
     {

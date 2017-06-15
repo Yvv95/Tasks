@@ -63,6 +63,7 @@
                             alert("В поле '" + _valutes[_number] + "' введено отрицательное значение");
                             _incorrect++;
                         }
+                        
                     }
                     _number++;
                     _numbers.push(get_textbox_value);
@@ -91,7 +92,7 @@
                         },
                         dataType: 'html',
                         error: function (data) {
-                            alert("Ошибка при запросе на подсчёт:" + data);
+                            alert("Ошибка при запросе на подсчёт. Проверьте, что все ячейки заполнены.");
                         }
                     });
                 }

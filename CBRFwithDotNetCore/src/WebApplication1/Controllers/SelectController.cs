@@ -7,10 +7,10 @@ using System.Xml.Serialization;
 using CBRFService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using WebApplication1.Models;
-using WebApplication1.XmlClasses;
+using CBRFConverter.Models;
+using CBRFConverter.XmlClasses;
 
-namespace WebApplication1.Controllers
+namespace CBRFConverter.Controllers
 {
     public class SelectController : Controller
     {
@@ -55,14 +55,13 @@ namespace WebApplication1.Controllers
             {Console.WriteLine(e); }
             List <DayCursePairs> pointList = new List<DayCursePairs>();
 
-            for (int i = dynamicVals.ValsList.Count()-1; i >=0 ; i--)
+            //for (int i = dynamicVals.ValsList.Count()-1; i >=0 ; i--)
+            for (int i=0; i<dynamicVals.ValsList.Count(); i++)
             {
                 DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
                 dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
-                // pointsList.Add(_point.CursDate, _point.Vcurs);
                 pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
             }
-            //}
             return new JsonResult(pointList);
         }
     }
