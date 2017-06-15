@@ -17,3 +17,5 @@
 а)MVC
 
 б)JQuery
+
+в) Google charts
