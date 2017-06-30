@@ -10,7 +10,6 @@ namespace CBRFConverter.Controllers
 {
     public class CheckController : Controller
     {
-
         [HttpPost]
         public ActionResult ChangeCheckbox(string name)
         {
@@ -30,6 +29,5 @@ namespace CBRFConverter.Controllers
             }          
             return Json(new {resultMessage = "Не удалось найти валюту " + name});
         }
-
     }
 }

@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CBRFConverter.Models;
-
+using CBRFConverter.ValutesApi;
+using CBRFService;
 namespace CBRFConverter.Controllers
 {
     public class ConvertController : Controller
     {
-        // GET: /<controller>/
+
         [HttpPost]
         public ActionResult AddToConvert(string name)
         {
@@ -59,9 +60,20 @@ namespace CBRFConverter.Controllers
             return Json(new { resultMessage = false });
         }
 
+        //избавиться от хранения в Startup.vals и  Startup.converter
         [HttpPost]
         public ActionResult TryCount(List<string> _valList, List<string> _numList, string _exitval)
         {
+            //обновление валют
+            LoadValutes helper = new LoadValutes();
+            string cbrfUpdate = helper.LastLoad();
+            if (HttpContext.Session.GetString("updated") != cbrfUpdate)
+            {
+                HttpContext.Session.SetString("updated", cbrfUpdate);
+                Startup.lastLoadDate = cbrfUpdate;
+                helper.Update();
+            }
+
             bool parsed = false;
             Startup.converter.exitVal = _exitval;
             for (int i = 0; i < _valList.Count; i++)

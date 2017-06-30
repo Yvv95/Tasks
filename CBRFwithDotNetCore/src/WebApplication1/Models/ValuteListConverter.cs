@@ -40,9 +40,13 @@ namespace CBRFConverter.Models
         {
             ValuteConverter a = new ValuteConverter(_name, _exchange);
             lists.Add(a);
-
         }
-
+        public void UpdateValute(string _name, string _exchange)
+        {
+            foreach (var search in lists)
+                if (search.name == _name)
+                    search.exchange = _exchange;
+        }
         public double tryCount()
         {
             countedSum = 0;

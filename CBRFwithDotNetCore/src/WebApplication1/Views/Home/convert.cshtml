@@ -5,7 +5,7 @@
 }
 <html>
 <head>
-    <title>Конвертирование</title>
+    <title>Кошелек</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -63,7 +63,7 @@
                             alert("В поле '" + _valutes[_number] + "' введено отрицательное значение");
                             _incorrect++;
                         }
-                        
+
                     }
                     _number++;
                     _numbers.push(get_textbox_value);
@@ -88,7 +88,7 @@
                                 alert("Ошибка при вычислении: " + json.failVal);
                                 return false;
                             }
-                            selector.append("<b> Итого: <i>" + json.counted + "</i></b>");
+                            selector.append("<b> <div class='counted'>"+json.counted+"</div></b>");
                         },
                         dataType: 'html',
                         error: function (data) {
@@ -138,6 +138,28 @@
     </script>
 
     <style>
+        .div1 {
+            width: 50%;
+            min-height: 150px;
+            /*background: #ccc;*/
+            float: left;
+        }
+
+        .div2 {
+            width: 50%;
+            min-height: 150px;
+            /*background: #c00;*/
+            margin-left: 70%;
+        }
+        .counted {
+            font-size: 30px;
+        }
+        .footer {
+            clear: left;
+            /*background: #000;*/
+            min-height: 50px;
+        }
+
         .design {
             display: inline-block; /* Строчно-блочный элемент */
             padding: 5px 20px; /* Добавляем поля */
@@ -177,41 +199,52 @@
 </head>
 
 <body>
-    <center>
-        <hr>
-        <a href="/Home/Index/" class="design">Начальная страница</a>
-        <a href="/Home/Dynamic/" class="design">График</a>
-        <a href="/Home/Convert/" class="selected">Конвертер</a>
-        <a href="/Home/Settings/" class="design">Настройки</a>
-        <hr>
-    </center>
-
-    <h3>Имеющиеся валюты</h3>
-    <p>Перевести в валюту:</p>
-    <select id="outvalute" name="outValSelection">
-        <option>Российский рубль</option>
-        @foreach (string val in (List<string>)ViewBag.SelectList)
-        {
-            <option>@val</option>
-        }
-    </select>
-    <p>Добавить валюту</p>
-    <select id="valute" name="valSelection">
-        <option value="0">---Выберите валюту---</option>
-        @foreach (string val in (List<string>)ViewBag.SelectList)
-        {
-            <option>@val</option>
-        }
-    </select>
-    <div id="results">
-        <table id="valuteRows"></table>
+    <div class="footer">
+        <center>
+            <hr>
+            <a href="/Home/Index/" class="design">Курс валют</a>
+            <a href="/Home/Dynamic/" class="design">Динамика</a>
+            <a href="/Home/Convert/" class="selected">Кошелек</a>
+            <a href="/Home/Settings/" class="design">Настройки</a>
+            <hr>
+        </center>
     </div>
 
-    <br />
-    <input type="button" value="Вычислить" id="calculate">
-    <br />
-    <label><span id="result" class="result"></span></label>
+    <h3>Имеющиеся валюты</h3>
+    <div class="div1">
+        <p>Добавить валюту</p>
+        <div id="results">
+            <table id="valuteRows"></table>
+        </div>
+        <select id="valute" name="valSelection">
+            <option value="0">---Выберите валюту---</option>
+            @foreach (string val in (List<string>)ViewBag.SelectList)
+            {
+                <option>@val</option>
+            }
+        </select>
+        
 
+        <br />
+        <input type="button" value="Вычислить" id="calculate">
+        <br />
+    </div>
+    <div class="div2">
+        <label><b>Итого в кошельке</b></label>
+        <br />
+        <br />
+
+        <label><span id="result" class="result"></span></label>
+
+        @*<p>Перевести в валюту:</p>*@
+        <select id="outvalute" name="outValSelection">
+            <option>Российский рубль</option>
+            @foreach (string val in (List<string>)ViewBag.SelectList)
+            {
+                <option>@val</option>
+            }
+        </select>
+    </div>
 </body>
 
 </html>

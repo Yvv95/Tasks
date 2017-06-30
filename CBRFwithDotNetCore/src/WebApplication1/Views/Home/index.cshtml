@@ -54,20 +54,20 @@
     <center>
         <hr>
         @*<img src="/1.png"/>*@
-        <a href="/Home/Index/" class="selected">Начальная страница</a>
+        <a href="/Home/Index/" class="selected">Курс валют</a>
 
         @*<img src="/2.png"/>*@
-        <a href="/Home/Dynamic/" class="design">График</a>
+        <a href="/Home/Dynamic/" class="design">Динамика</a>
 
         @*<img src="/3.png"/>*@
-        <a href="/Home/Convert/" class="design">Конвертер</a>
+        <a href="/Home/Convert/" class="design">Кошелек</a>
 
         @*<img src="/4.png"/>*@
         <a href="/Home/Settings/" class="design">Настройки</a>
         <hr>
     </center>
-    <h3>Курс валют от @ViewBag.LoadDate</h3>
-
+    <p align="left"><b>Избранные валюты</b></p>
+    <p align="right">Курс от @ViewBag.LoadDate</p>
     <table>
         <tr>
             <td><b>Валюта</b></td>

@@ -135,7 +135,7 @@ namespace CBRFConverter
             if (vals != null)
                 foreach (var curValue in valXML.ValsList)
                 {
-                    vals.Create(curValue.Vname, curValue.Vcurs, Int32.Parse(curValue.Vcode), curValue.VchCode);
+                    vals.Create(curValue.Vname.Trim(), curValue.Vcurs.Trim(), Int32.Parse(curValue.Vcode), curValue.VchCode.Trim());
                     converter.AddValues(curValue.Vname.Trim(), curValue.Vcurs.Trim());
                 }
         }

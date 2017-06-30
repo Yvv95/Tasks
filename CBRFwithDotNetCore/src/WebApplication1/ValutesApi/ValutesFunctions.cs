@@ -15,6 +15,16 @@ namespace CBRFConverter.ValutesApi
             
         }
 
+        public string GetExchange(string valName)
+        {
+            foreach (Valutes a in ValsList)
+            {
+                if (a.Name.Trim() == valName)
+                    return a.Exchange;
+            }
+            return "0";
+        }
+
         public Valutes Create(string _name, string _exchange, int _worldName, string _chCode)
         {
             Valutes tmp = new Valutes();
@@ -34,14 +44,17 @@ namespace CBRFConverter.ValutesApi
             return ValsList;
         }
 
-        public void Update(Valutes chngVal)
+        public void Update(string chngVal, string newExch)
         {
-            var valToUpdate = ValsList.SingleOrDefault(r => r.ChCode == chngVal.ChCode);
-            if (valToUpdate != null)
-            {
-                valToUpdate.Exchange = chngVal.Exchange;
-                //....
-            }
+            foreach (Valutes a in ValsList)
+                if (a.Name == chngVal)
+                    a.Exchange = newExch;
+            //var valToUpdate = ValsList.SingleOrDefault(r => r.ChCode == chngVal.ChCode);
+            //if (valToUpdate != null)
+            //{
+            //    valToUpdate.Exchange = chngVal.Exchange;
+            //    //....
+            //}
         }
 
         public int getValNumber(string valName)

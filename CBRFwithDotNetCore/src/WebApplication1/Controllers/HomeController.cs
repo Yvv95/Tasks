@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CBRFConverter.Models;
 using CBRFConverter.ValutesApi;
+using CBRFService;
 
 namespace CBRFConverter.Controllers
 {
@@ -14,29 +15,43 @@ namespace CBRFConverter.Controllers
         //отображение отмеченных валют
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("loaded") == null)
+            //проверка на актуальность курса валют
+            LoadValutes helper = new LoadValutes();
+            string cbrfUpdate = helper.LastLoad();
+
+            if  (HttpContext.Session.GetString("updated") == null)
             {
-                HttpContext.Session.SetString("loaded", "yes");
-                ViewBag.LoadDate = Startup.lastLoadDate;
+                HttpContext.Session.SetString("updated", cbrfUpdate);
+                ViewBag.LoadDate = cbrfUpdate;
+                if (Startup.lastLoadDate != cbrfUpdate)
+                {
+                    helper.Update();
+                    Startup.lastLoadDate = cbrfUpdate;
+                }
                 foreach (Valutes toAdd in Startup.vals.ValsList)
                 {
                     HttpContext.Session.SetString(toAdd.Name.Trim(), false.ToString());
                 }
                 Dictionary<string, string> bags = new Dictionary<string, string>();
                 ViewBag.Vals = bags;
-
                 return View();
             }
-
-            ValutesFunctions toSend = Startup.vals;
-            for (int i = 0; i < toSend.ValsList.Count; i++)
-            {              
-                if (HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()) != null)        
-                    toSend.ValsList[i].IsChecked =
-                        Boolean.Parse(HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()));            
+            else
+                if (HttpContext.Session.GetString("updated") != cbrfUpdate)
+            {
+                HttpContext.Session.SetString("updated", cbrfUpdate);
+                Startup.lastLoadDate = cbrfUpdate;
+                helper.Update();
             }
-            ViewBag.LoadDate = Startup.lastLoadDate;
-            ViewBag.Vals = (Dictionary<string, string>)toSend.getChecked();
+            Dictionary<string, string> toSend = new Dictionary<string, string>();
+            foreach (string _name in Startup.vals.getNames())
+            {
+                string temp = HttpContext.Session.GetString(_name);
+                if (HttpContext.Session.GetString(_name) == "True")
+                    toSend.Add(_name, Startup.vals.GetExchange(_name));
+            }
+            ViewBag.LoadDate = cbrfUpdate;
+            ViewBag.Vals = toSend;
             return View();
         }
 
@@ -56,18 +71,16 @@ namespace CBRFConverter.Controllers
             ViewBag.Vals = toSend.ValsList;
             return View();
         }
+
         public IActionResult Convert()
         {
             ViewBag.SelectList = (List<string>)Startup.vals.getNames();
-            //отдельный класс для конвертора с дублированием полей валют?
-
             return View();
         }
 
         public IActionResult Dynamic()
         {
             ViewBag.SelectList = (List<string>)Startup.vals.getNames();
-
             return View();
         }
     }

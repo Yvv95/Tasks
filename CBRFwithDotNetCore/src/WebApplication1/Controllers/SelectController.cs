@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using CBRFService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Http;
 using CBRFConverter.Models;
 using CBRFConverter.XmlClasses;
+using CBRFConverter.ValutesApi;
 
 namespace CBRFConverter.Controllers
 {
@@ -17,7 +18,9 @@ namespace CBRFConverter.Controllers
         [HttpPost]
         public ActionResult LoadCurses(string valName, string period)
         {
-            int daysMinus = 7;
+            //здесь не проверяем на обновления, т.к. всё равно приходиться подгружать с помощью других методов
+
+                int daysMinus = 7;
             switch (period)
             {
                 case "Неделя":
@@ -35,7 +38,7 @@ namespace CBRFConverter.Controllers
             }
             var loader = new CBRFService.DailyInfoSoapClient(DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap);
             DynamicValuteCollection dynamicVals = new DynamicValuteCollection();
-
+            List<DayCursePairs> pointList = new List<DayCursePairs>();
             try
             {
                 loader.OpenAsync();
@@ -49,18 +52,20 @@ namespace CBRFConverter.Controllers
                     dynamicVals = (DynamicValuteCollection)
                         serializer2.Deserialize(_tmp);
                 }
-                loader.CloseAsync();
+                for (int i = 0; i < dynamicVals.ValsList.Count(); i++)
+                {
+                    DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
+                    dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
+                    pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
+                }
             }
-            catch(Exception e)
-            {Console.WriteLine(e); }
-            List <DayCursePairs> pointList = new List<DayCursePairs>();
-
-            //for (int i = dynamicVals.ValsList.Count()-1; i >=0 ; i--)
-            for (int i=0; i<dynamicVals.ValsList.Count(); i++)
+            catch (Exception e)
             {
-                DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
-                dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
-                pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                loader.CloseAsync();
             }
             return new JsonResult(pointList);
         }
