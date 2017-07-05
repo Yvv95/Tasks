@@ -19,7 +19,7 @@ namespace CBRFConverter.Controllers
             LoadValutes helper = new LoadValutes();
             string cbrfUpdate = helper.LastLoad();
 
-            if  (HttpContext.Session.GetString("updated") == null)
+            if (HttpContext.Session.GetString("updated") == null)
             {
                 HttpContext.Session.SetString("updated", cbrfUpdate);
                 ViewBag.LoadDate = cbrfUpdate;
@@ -48,7 +48,12 @@ namespace CBRFConverter.Controllers
             {
                 string temp = HttpContext.Session.GetString(_name);
                 if (HttpContext.Session.GetString(_name) == "True")
-                    toSend.Add(_name, Startup.vals.GetExchange(_name));
+                {
+                    string tmp = Startup.vals.GetExchange(_name).Replace(".", ",");
+                    toSend.Add(_name,
+                        Math.Round(Double.Parse(tmp), 2).ToString()
+                       );
+                }
             }
             ViewBag.LoadDate = cbrfUpdate;
             ViewBag.Vals = toSend;
@@ -65,9 +70,11 @@ namespace CBRFConverter.Controllers
                 {
                     toSend.ValsList[i].IsChecked =
                         Boolean.Parse(HttpContext.Session.GetString(toSend.ValsList[i].Name.Trim()));
+                    toSend.ValsList[i].Exchange = Math.Round(Double.Parse(toSend.ValsList[i].Exchange.Replace(".", ",")), 2).ToString();
                 }
             }
             ViewBag.LoadDate = Startup.lastLoadDate;
+
             ViewBag.Vals = toSend.ValsList;
             return View();
         }

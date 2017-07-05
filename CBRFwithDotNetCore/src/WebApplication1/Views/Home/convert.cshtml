@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 <html>
 <head>
     <title>Кошелек</title>
@@ -10,7 +6,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#valute').change(function () {
-                //var _per = $(periods).find('option:selected').val();
                 if ($(this).val() == 0) return false;
                 var _vals = $(valute).find('option:selected').val();
                 var target = $("#valuteRows");
@@ -25,11 +20,13 @@
                     success: function (data) {
                         var json = $.parseJSON(data);
                         selector.empty();
-                        selector.append("<option value=\"0\">---Выберите валюту---</option>");
+                        selector.append("<option value=\"0\" class=\"comboBox\">Выберите валюту...</option>");
                         for (var i = 0; i < json.length; ++i) {
                             selector.append("<option>" + json[i].name + "</option>");
                         }
-                        target.append("<tr><td><b class=\"col1\">" + _vals + "</b></td><td> <input type=\"text\" name='" + _vals + "' class='txtCal'> </td> <td><span class='spnRemove'><input type=\"button\"  class='valCal' name='" + _vals + "' value=\"X\"></span></td></tr>");
+                        target.append("<tr><td><input type='text' disabled class=\"col1\" value='" + _vals + "'/></td><td> <input type=\"text\" name='" + _vals + "' class='txtCal'> </td> <td><span class='spnRemove'><input type=\"button\"  class='valCal' name='" + _vals + "' value=\"X\"></span></td></tr>");
+                        //target.append("<tr><td><b class=\"col1\">" + _vals + "</b></td><td> <input type=\"text\" name='" + _vals + "' class='txtCal'> </td> <td><span class='spnRemove'><input type=\"button\"  class='valCal' name='" + _vals + "' value=\"X\"></span></td></tr>");
+
                     },
                     dataType: 'html',
                     error: function (data) {
@@ -39,10 +36,10 @@
             });
         });
     </script>
-
+    @*ап*@
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#calculate').click(function () {
+            $('#outvalute').change(function () {
                 var _valutes = [];
                 var _numbers = [];
                 var _number = 0;
@@ -88,7 +85,7 @@
                                 alert("Ошибка при вычислении: " + json.failVal);
                                 return false;
                             }
-                            selector.append("<b> <div class='counted'>"+json.counted+"</div></b>");
+                            selector.append("<div class='counted'>" + json.counted + "</div>");
                         },
                         dataType: 'html',
                         error: function (data) {
@@ -99,18 +96,19 @@
                 else {
                     var selector = $("#result");
                     selector.empty();
-                    selector.append("<b><i>Некорректные данные</i></b>");
+                    selector.append(" <div class='counted'>0</div>");
                 }
             });
         });
     </script>
+
 
     @*@*нажатие на кнопки удаления*@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#results").on('click', '.spnRemove', function () {
                 var self = $(this).closest("tr");
-                var _name = self.find(".col1").text();
+                var _name = self.find(".col1").val();
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("RemoveFromConvert", "Convert")",
@@ -119,10 +117,12 @@
                     },
                     async: false,
                     success: function (data) {
+                        var selector = $("#result");
+                        selector.empty();
                         var selector = $("#valute");
                         var json = $.parseJSON(data);
                         selector.empty();
-                        selector.append("<option value=\"0\">---Выберите валюту---</option>");
+                        selector.append("<option value=\"0\">Выберите валюту...</option>");
                         for (var i = 0; i < json.length; ++i) {
                             selector.append("<option>" + json[i].name + "</option>");
                         }
@@ -138,51 +138,114 @@
     </script>
 
     <style>
+        .outSelect {
+            padding: 3px 0px 0px 0px;
+            border: 0px;
+            background: #1E223B;
+            color: #B6B8DB;
+            font-size: 12.0px;
+            font-style: normal;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .col1 {
+            width: 200px;
+            height: 30px;
+            border: 1px solid #565A75;
+            padding: 5px;
+            background: #2a2e47;
+            color: #ffffff;
+            left: -5px;
+            font-size: 12.0px;
+            font-style: normal;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .txtCal {
+            width: 120px;
+            height: 30px;
+            border: 1px solid #565A75;
+            padding: 5px;
+            background: #2a2e47;
+            color: #ffffff;
+            font-size: 12.0px;
+            font-style: normal;
+            font-weight: 400;
+            text-align: right;
+        }
+
+        .valCal {
+            text-decoration: none;
+            background: #1E223B;
+            color: #D0011B;
+            text-align: center;
+            display: block;
+            font: normal 16px arial;
+            outline: none;
+            border: 0px;
+        }
+
+        .tabs {
+            border-spacing: 7px 11px; /* Расстояние между ячейками */
+        }
+
         .div1 {
             width: 50%;
             min-height: 150px;
-            /*background: #ccc;*/
             float: left;
         }
 
         .div2 {
             width: 50%;
             min-height: 150px;
-            /*background: #c00;*/
             margin-left: 70%;
         }
+
         .counted {
             font-size: 30px;
         }
+
         .footer {
             clear: left;
-            /*background: #000;*/
             min-height: 50px;
         }
 
         .design {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #B6B8DB; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #B6B8DB;
+            margin-top: 10px;
         }
 
         .selected {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #E5367B; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #E5367B;
+            margin-top: 10px;
         }
     </style>
     <style>
+        select {
+            padding: 3px 0px 0px 0px;
+            width: 200px;
+            height: 30px;
+            border: 1px solid #565A75;
+            /*border-radius: 1px;*/
+            padding: 5px;
+            background: #2a2e47;
+            color: #ffffff;
+            font-size: 12.0px;
+            font-style: normal;
+            font-weight: 400;
+            text-align: left;
+        }
+
         body {
             background: #1E223B;
             color: #ffffff;
@@ -194,6 +257,15 @@
             background-color: #292F4E;
             height: 1px;
         }
+
+        figure {
+            max-width: 100px;
+        }
+
+        figcaption {
+            text-align: center;
+            color: grey;
+        }
     </style>
 
 </head>
@@ -202,32 +274,77 @@
     <div class="footer">
         <center>
             <hr>
-            <a href="/Home/Index/" class="design">Курс валют</a>
-            <a href="/Home/Dynamic/" class="design">Динамика</a>
-            <a href="/Home/Convert/" class="selected">Кошелек</a>
-            <a href="/Home/Settings/" class="design">Настройки</a>
+            <table class="tabs">
+                <tr>
+                    <td>
+                        <figure>
+                            <center>
+                                <a href="/Home/Index/">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABHNCSVQICAgIfAhkiAAAAjpJREFUOI2tkz+M0nAUxx8Xt8Idk78BhoZOklzthrDcXUJnWx1tcjDBhHhNdCH8MTrAhHgo53JcQichlHNoE0jkFgmL/DGBpTQM58BkFTvXwcOcpeid8t368n3fz3vvl9rAJH+AZpLJ13Vz/V80mYz6S8VkqiQybDi+DoAkK8ZS0W7fdK4jfAG4wXGx9Dbp21lH4Juj54/MZ7FJsmIIlUKGYcPxSqWQVq3u9gcxbDiOYQ4nAICuz7WnmSjz2wYAANukbwfDHFudD00RIReu63NtMQlBeKk7/uBd/fs3rdNpNWaz8+llgIfwUsEgu79qgA0AgE/D7tmTxw/2zM3JVEk8LJ72SNK3F4km8ofF0x5N3w9d9oj143yrVT/R9flXS4LlSwMAx8XSkqwYkWgiTxBeyh+gmfLJ2VSSFQMhN27lz+aEtjl7Y9Vq/gDNAAAMh932TeTCOS6WxjDHFgAATd8LreozayXA47l1GwDg4CB7DABwVHoWV9Xx4KrBfwV0Oq0GAIAgvMwg5MYZNhxX1XEfAGA2+zz9b4BQKaQBAIJBdl+djPqz2fmUYUIPVXU8aDZr5VV9BOGlJFkxJFkxVHU8gMVHNie8N5tJ0rdbfPWuv/DwfK68+NOTqZJIEF6KILzU2+rHLxcZ7SWiJCuGP0Az1VpPI0nf7lVXXygSTeR5Plfm+VzZCmCr1nqaYRiG3b7pnExGfV2fa9cBIOTCMeznVg2x/KJycdpfAITcOEIu/LqTW2k47LbNtR9oaAXvFlgWNwAAAABJRU5ErkJggg==">
+                                </a>
+                            </center>
+                            <figcaption><a href="/Home/Index/" class="design">Курс валют</a></figcaption>
+                        </figure>
+                    </td>
+                    <td>
+                        <figure>
+                            <center>
+                                <a href="/Home/Dynamic/">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAABHNCSVQICAgIfAhkiAAAAZ1JREFUSIntlbFLAlEcx7/PoohDcnuBgdVNCZlbXUsO52zUaBD9A2EFtWlDDbUlRdpSgY2Vtiqk02FLeUJOHgUFWYPneTdUS0M9iNA0uYai7/Z97/d7n997P348AhPF80731vbpBfO6rqntZgI4zmpTlEIuGlkNAMD6xuFZXQDPO92jguhj/qF0d5NMHu03gui6pspyNs28pV6gIIgTXu/ULAFID+3tX1hc32v2Jh9VFwAApdLtdSwWXmmm8pYAZugf0FAtzYEw5p0YGBgcZj4R39/UdU01DRAM7pwoSiGn65rK8043AUgsFl6pFdvyE0Ujq4HlJb+nWLy6/Cru53sQDEXiHGftZgu70bX5RlV9RxZBEH15OZvJy9kMpb39HGe1mXU48N5k1qAh14jHzMOBvzBovx/QDgD+6bkQAFBqd3zcpNTu8E/PhSi1931OFL2TM0OukXFK7Y58jRzm2wyjWuns6OwiAFGUQk6Wz9OGoamGUVVfnp+eCEAMo1pJJY8PFKVwCbx9nwQgLEeSUvFy+fEeIGDrBCCSlEq8AhxMlQqmlvyoAAAAAElFTkSuQmCC">
+                                </a>
+                            </center>
+                            <figcaption><a href="/Home/Dynamic/" class="design">Динамика</a></figcaption>
+                        </figure>
+                    </td>
+                    <td>
+                        <figure>
+                            <center>
+                                <a href="/Home/Convert/">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAUCAYAAACXtf2DAAAABHNCSVQICAgIfAhkiAAABJFJREFUOI2NVF1s21QU/hw7tevOuelaLe1ax2J0bSFZV21rWSLENqFplQbiZd0DQpOmreIBXhASL4hfCQkhFZDQxEOrTRoTSNmkAXtgoWgbK2pYAlSKGraFdqPJ1tX9gdhpUjuxYx6wqSljcKRPV77X53znfOfcSwNoAtBIaO6hq9ue/yHEBx4nNCfdqSgl3TLqAfhsEAB+AI02mmxstEEACAB4AF4ANACKAVAPoD4iBPeqpl66oysLQy39xz7c8vR7U+X56wk1l5wozibjhewVAB4AtFhH2tpZ0ibW+dtElrS2s6RVrPO3JoqzyeG58Q/s4ABgUWId2ftWcP9rIT7QHVtKfzU8Nz4CwCQ0x0eE4M6oT9o14O/a186S1rxeuCey/lYAyJTlGdXQSplVeVoxtBXCcPxgU8+B2FL6y/fnxocVU7sHoEyf6hg8u2iUCmE+0HViPvFpvqLIAKBbRnVaW85dVm5dG5GTZ2NL6Yt3KsoiBcqzyduw0UdzDdPa8t0JNZeJF7LJxWqp8MzGR/cQhiMiS4KXlVvfAjCYiE/aNXH36qiP4TZEhGBvRAhuB1ADYNllUjY8AOip8vzMVHn+dogPPBwRpG0DjV27AUAxtBJhuIbYUnoyzAceAcAAoBkAiArSjuG7V086urmCO9+UvdacvUxZns6U5Rn77C+/gcau3aqhKXYfaPrltifePHTjzNDFQvYKBcoUWbJpVE6d/qk0N7ljQ1s4UcylYsvpz8N8S+dCtbQwupD6jNBcwybvBv+onIotGqXlDq6pPV7IfvfFbz9fmtGWb0cFqTe2nD4PoOoBgHxF+RXAqsiS5qgg7RRZ0iSypCkqSLtEljQTmvNEBak36pN6AahRnxQO8y1bfDRLhfhAMCpIPT6aYwFUAZguaWlqru9Va3Pqna12iYYNdw/gcoBTuq1xnT3z3qgg9VmwqBAf6Djc3HPw2C/nXshXlGnGdnKYqzZqLr0p/N2c4F4AllhHNp/rfu60auorqqGtALCKhr5ybfuL37x0+8IrDoGTecVFVsM/jbIJHBmYoZb+I/FC9tLrubFh1zBYUUHqPdlx6COPawJqtqPpInSwft9JoBaqD3QrhlYM84HOqCDtdAgmirMpH8MJDoFD4l6x7ux++/9pjkTORfJg7R1Zr/36/ygAVGZVvk4YTpgqy1msXUorKkh9qqEVHQLalSWFBzfZg7Um0yPzyU/GQsfP7xaCfaqhF52KQ3yg64382NtuAic7L+4/pm4CZ5KYfEWZfyx94mDoz+eBCvGBrYebe54avHnmyFRZnnQTMAP+zidDfKA7XsiOAbAO+Dv3Z8ryjUQx9/3xQN9RxdSUUTl1eijQf9RHs77YUvqCyPrFiBDsTxRzkxPF2R8B1FRD2zNVljMADA8AEJojTkYAvIqh6YqhVWBfJMXUqqqpr1Kg6gBweb0gA2BUU19VTa0EgFJNTcXaJNZgjzx1qmMwbsGiMmX5pqtJD7J/a74FwDrQ2Lkv/nv26+G58XcBaBShua7DzT3PDvg7Bx4Q4H+ZaurKRHE2MSInPwagA9D/AP/R8pD84U/GAAAAAElFTkSuQmCC">
+                                </a>
+                            </center>
+                            <figcaption><a href="/Home/Convert/" class="selected">Кошелек</a></figcaption>
+                        </figure>
+                    </td>
+                    <td>
+                        <figure>
+                            <center>
+                                <a href="/Home/Settings/">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAA95JREFUSImtVk9oIlcYn0lL/8Bg3UIZIQmos4dG2NlZWGomh2QW8iDLHmrXwx4yJbIHZwpdt+xCW9D1X3uIvSjiGHvKCAYKjuugBYUE1pxCL47dQ7cFVw2NJdrDuFkDSfZgD+HJZNBGaL/Tex/fn/d+7/d930OQCYQk7UxWqqqlcn1QKtcHWamqkqSdmcR3ahIjegE4dnaepm+vXEVvr1xFd3aepukF4JjE9y29AgCna5X1BNoHzT9u3lxcefQ4snn9+vytrUw82Om0WwiCIG/OTk/u3/96fXHpzr2zN6cnKIqiXz4Ib7z7znvvNxovamOzAeB0STmlx/G+mJRTemJ6twWA04VhBqPeFsMMRgCcLjG929L6AOB0/WtwgrBRk1x9lBCEjdInGULEfv4w+Pz5L5Xt7Zw46rSLS3fu0QvAQZJ2Bsenzd1ue//s7PREa6eqfx9e+fAj08dzN+Z3d3/+aWR2fXCW9QSzUlUVksUax/tiHO+LCcliLStV1VXWE9Db61F4Gy6s1jmq3z+6kMAfSMk4Pm3+9hv21suXv114PIKwUY8eR0SrdY76LvzFZ1Df7x/1rNY5Sm+PCMliTYsdy3qCQrJYG/XAWuiEZLHGsp4g1AHgdCWEgjI0Ikk74+a8USmn9GAwDDMYYWG5OW9Uq9eu3Zw3WirXB3pfKaf03Jw3SpJ2ZsofSMkoiqLhEO+AENE0cHS77X3XGmMxmWYtm2Kl+cS/kc9KVTUrVdUn/o38plhpmkyzFtcaY+l0Dlo0fV54/f5RLxziHSiKov5ASkZK5fpAf3WW9QQ53hfTXrtUrg8wzGAkCBtVKtcHWjg53hfTwgSlVK4PJmoVe3vbMoIgCI7PmPW6y2Tq+Pj1K4gXVHY67da1a58swX2/f9TbysRDCaGgJISCspWJh7SMI0k7A9sI3Ls5b/T4+PUrhCTtDCxz/UNpT4wg59DpocDxGfMognC8L3ah446iaUIoKFqa6hNgmMGYEAqKnqZCsjisgeEbyHkxtso+GFZmJhMPdrt/7a9HMs9G9SeCsFHrkcyzZuP3XzOZ+DDBKusJynlxSJBhJTcaL2oY9sEVbZBwiHewrCcY+WGrcnj4ZxPq5+nlT02mWYuc34xpg8NbaVs2Chf+QErudA5aP6a+/0p/WgwzGGkaOHB82owg5yTY29uW9a0FQc4pi+Mz5nCIvziQ/q92nZWq6qUzwc15o1mpqorpSnMZ3F0bN3CWwd01MV1pZqWqCn3GBtcm8QdSMkHYKMgI/ZCHnwDIPIKwUf5ASr40+DiBc2Dc/j8LSdoZKaf04LdFyim9Sb8t/wAuUBEVwWzjYwAAAABJRU5ErkJggg==">
+                                </a>
+                            </center>
+                            <figcaption><a href="/Home/Settings/" class="design">Настройки</a></figcaption>
+                        </figure>
+                    </td>
+                </tr>
+            </table>
             <hr>
         </center>
     </div>
 
-    <h3>Имеющиеся валюты</h3>
+    <p align="left">
+        <b>
+            Имеющиеся валюты
+        </b>
+    </p>
     <div class="div1">
-        <p>Добавить валюту</p>
         <div id="results">
             <table id="valuteRows"></table>
         </div>
         <select id="valute" name="valSelection">
-            <option value="0">---Выберите валюту---</option>
-            @foreach (string val in (List<string>)ViewBag.SelectList)
+            <option value="0">Выберите валюту...</option>
+            @foreach (string val in (List
+                <string>
+                    )ViewBag.SelectList)
             {
                 <option>@val</option>
             }
         </select>
-        
+
 
         <br />
-        <input type="button" value="Вычислить" id="calculate">
-        <br />
+        @*<input type="button" value="Вычислить" id="calculate">
+            <br />*@
     </div>
     <div class="div2">
         <label><b>Итого в кошельке</b></label>
@@ -237,9 +354,11 @@
         <label><span id="result" class="result"></span></label>
 
         @*<p>Перевести в валюту:</p>*@
-        <select id="outvalute" name="outValSelection">
+        <select id="outvalute" class="outSelect" name="outValSelection">
             <option>Российский рубль</option>
-            @foreach (string val in (List<string>)ViewBag.SelectList)
+            @foreach (string val in (List
+            <string>
+                )ViewBag.SelectList)
             {
                 <option>@val</option>
             }

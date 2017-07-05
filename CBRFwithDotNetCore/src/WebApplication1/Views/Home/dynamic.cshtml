@@ -164,29 +164,51 @@
 
 
     <style>
+        .outSelect {
+            padding: 3px 0px 0px 0px;
+            border: 0px;
+            background: #1E223B;
+            color: #B6B8DB;
+            font-size: 12.0px;
+            font-style: normal;
+            font-weight: 400;
+            text-align: left;
+        }
+        .tabs {
+            border-spacing: 7px 11px; /* Расстояние между ячейками */
+        }
+
         .design {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #B6B8DB; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #B6B8DB;
+            margin-top: 10px;
         }
 
         .selected {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #FBDA4D; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #FBDA4D;
+            margin-top: 10px;
         }
     </style>
     <style>
+        select option {
+            color: #ffffff;
+            background-color: #1E223B;
+            border: 0px;
+        }
+
+        select {
+            color: #ffffff;
+            background-color: #1E223B;
+            border: 0px;
+        }
+
         body {
             background: #1E223B;
             color: #ffffff;
@@ -198,22 +220,75 @@
             background-color: #292F4E;
             height: 1px;
         }
+
+        figure {
+            max-width: 100px;
+        }
+
+        figcaption {
+            text-align: center;
+            color: grey;
+        }
     </style>
 </head>
 
 <body>
     <center>
         <hr>
-        <a href="/Home/Index/" class="design">Курс валют</a>
-        <a href="/Home/Dynamic/" class="selected">Динамика</a>
-        <a href="/Home/Convert/" class="design">Кошелек</a>
-        <a href="/Home/Settings/" class="design">Настройки</a>
+        <table class="tabs">
+            <tr>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Index/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABHNCSVQICAgIfAhkiAAAAjpJREFUOI2tkz+M0nAUxx8Xt8Idk78BhoZOklzthrDcXUJnWx1tcjDBhHhNdCH8MTrAhHgo53JcQichlHNoE0jkFgmL/DGBpTQM58BkFTvXwcOcpeid8t368n3fz3vvl9rAJH+AZpLJ13Vz/V80mYz6S8VkqiQybDi+DoAkK8ZS0W7fdK4jfAG4wXGx9Dbp21lH4Juj54/MZ7FJsmIIlUKGYcPxSqWQVq3u9gcxbDiOYQ4nAICuz7WnmSjz2wYAANukbwfDHFudD00RIReu63NtMQlBeKk7/uBd/fs3rdNpNWaz8+llgIfwUsEgu79qgA0AgE/D7tmTxw/2zM3JVEk8LJ72SNK3F4km8ofF0x5N3w9d9oj143yrVT/R9flXS4LlSwMAx8XSkqwYkWgiTxBeyh+gmfLJ2VSSFQMhN27lz+aEtjl7Y9Vq/gDNAAAMh932TeTCOS6WxjDHFgAATd8LreozayXA47l1GwDg4CB7DABwVHoWV9Xx4KrBfwV0Oq0GAIAgvMwg5MYZNhxX1XEfAGA2+zz9b4BQKaQBAIJBdl+djPqz2fmUYUIPVXU8aDZr5VV9BOGlJFkxJFkxVHU8gMVHNie8N5tJ0rdbfPWuv/DwfK68+NOTqZJIEF6KILzU2+rHLxcZ7SWiJCuGP0Az1VpPI0nf7lVXXygSTeR5Plfm+VzZCmCr1nqaYRiG3b7pnExGfV2fa9cBIOTCMeznVg2x/KJycdpfAITcOEIu/LqTW2k47LbNtR9oaAXvFlgWNwAAAABJRU5ErkJggg==">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Index/" class="design">Курс валют</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Dynamic/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAABHNCSVQICAgIfAhkiAAAAtBJREFUSImVVU1IVFEU/u770fFBM/2BzaSMu8lNWZEtDdSIAiOCNknlIlrZovazEFwUtGgWBoELra2zkKCoNgYGSYkT0qhQpDLpoqF5b0DSN/NeC+9xzrs9HTxwePfe8/Odc+459wnUSADQ5NcAoMu9BsAH4AGoMvaY3AQQ6WiPnv08eeEtOSw5rqMpAOTcBNAIoAmAJTkCoEHKyTHZ6QCMWNQ8nMvbC9390wPd/dMDB6Nm1FCca1K5oaM9eqavJ35ZnmO5sLEyll19KbOpyq9qK0pltzz1qThLUfMMaK8DMPt641duX2+9AYGGtharbfTR6ScsA52A61FYiXTin4WNX0OZxdGx7MorqWMqJRKMOfmUoaEIOIgKCA6O7UvmjUEgPvYAAFPkX1pr0sZgTnhAdTOoRzpqHaajdtEEStnskIFgHTn7TE8wfTr3WKQ0MzrT38lAY0L18lQAE4B2tfdY76kTsZQ88zNjP16UHLeM4GwIAjAZgMmAVOekr0+MdGZyeXupVHbLHe2xFATMocziSFhwGrZ7OyK5EcFphWKgSxkeDM8/7b758f5c3l5C7fKpRIGImlC7JHJghpSJAiKiduUvgNqBMLLPzo3HDpgxOnw4PP94Lu98R3ibqiULo4Bc6+uJX5yaKX6ZminOtrVYrbGoeQj7eArqkQEAQ5nF5wCMrvNHOhFMfbdnIGz9X/Q7ACGO+F5d70ah9vudZDXivcACAB6Ck0lrsDMVQD33EBIAAVRRG28PQIUZVKQcAFxmW5Uy/jslG1pvA6QHU/cAiGTCigPYArAJoJpMWM3pwdSd5PGmhHS6Sd5vXWu91NV59GQyYTUDxaqUucmEFU8Ppu5SNrpddv1IRG+EgJ9bcL59mClOlxz3j+24pb9b3hYEfLtcscezqxO5vPMVgLtc2ChACEDAyy04+cl3a2/Wf2+uCSEqsvo+BLzJ9+uv/wGqcOLq64E+SAAAAABJRU5ErkJggg==">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Dynamic/" class="selected">Динамика</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Convert/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAUCAYAAACXtf2DAAAABHNCSVQICAgIfAhkiAAAA1tJREFUOI2tVU9ME2kUf4Pc5ut0NNn9sqGJzcypTfpZLvsxXDok7W0Tp3rZBBLpZfGEbDh40FBJPKwkuoiLf9aDJSkezIJVD7JpE6sXbKKhDAnlYAcIkDhowjCdLxEu3QP9EI0RN/V3mZeXN7837/f+zBFoACFJ/vvuvxVFDUVFJMmbmxuru7s7H6BJtHIjQqjOWG17095YTSZTvw8OjmSq1cWyaZaKC2apODtbeMRjMQ4Ef8RtxzFuC2IcCPLngll6ns2OXTqYQMA4EPyt78KfqhqKFvLTEzwAIUmOEKoTQnVNSxgYtx237fUVjANBAADLqsx7nutYVqXMPNcRkSTH46fO5PNTmfuTN4Y9z3UAAI4MpW/lnK33tqqG2x88uPOHbW+sAADs7u58WF+zll6/ejGTy2VGC/npiU17YxUEQTh27IefRNHnX1uzlsxGdVtb797GYr/86vP5j2IcCL5+9WIGAKCVEBrLZseeiaLPHyE0FiE09jVNq9XFuWp1cU5RQlFCqN7ZmTAAADzPdRCS5Hx+KqOq4fZPekAI7ZrMjg0LAMK3Nm/ZqswvW5X5z/1aZ8Lg8gAAwNOZN3WuKyFU7+7pTyMkyQhJcndPf5oQqgMAGMnUQDxx6gwn4XGqGo529/SnVTUc5RxXRiaLnL8FAMC211cA9qaDENq1NxkfbYQkmRCqnyAdXZxEVcPtoijJDam6RNEnf7HUpzNv6t8qy9dACNUjhMYMo/fcX+OP57gqrYe8dygwDgSvjGSfMVbb5tozVtvOTBSXr109n2q6gr6zF0f7zl4c/dxPCNX/mZpzWpohBwBQlFCUea6jquEoHwgAANMsFUXR5286wWFougeWVSmLSJKr1cXyQT9p3LamE+QeZkbHbz4pRyI/xxir7S+YooSid25fHvguY8r3hBCqG8nUwPjNJ2W+eJ9UoHUmDEUJnXjZOM0dWvykZVXmF8xS8aTRe455rpPLZa4bydSAKPr8hfz0BMZtwQihsQWz9Nw0S0UAAE+LO1yyFv4FPIkAIHie63ie6/Db5Hmuw1htGwRBANjbfAFAYMx1GKs5e/ZHeQ5CGErfztXr9bplVcpfCvi/0LS48XK28Ij/VwSEJDmeON2raXGjWXLGao5ploq5h/f2F+8/vDR/Mu4Ud9UAAAAASUVORK5CYII=">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Convert/" class="design">Кошелек</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Settings/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAA95JREFUSImtVk9oIlcYn0lL/8Bg3UIZIQmos4dG2NlZWGomh2QW8iDLHmrXwx4yJbIHZwpdt+xCW9D1X3uIvSjiGHvKCAYKjuugBYUE1pxCL47dQ7cFVw2NJdrDuFkDSfZgD+HJZNBGaL/Tex/fn/d+7/d930OQCYQk7UxWqqqlcn1QKtcHWamqkqSdmcR3ahIjegE4dnaepm+vXEVvr1xFd3aepukF4JjE9y29AgCna5X1BNoHzT9u3lxcefQ4snn9+vytrUw82Om0WwiCIG/OTk/u3/96fXHpzr2zN6cnKIqiXz4Ib7z7znvvNxovamOzAeB0STmlx/G+mJRTemJ6twWA04VhBqPeFsMMRgCcLjG929L6AOB0/WtwgrBRk1x9lBCEjdInGULEfv4w+Pz5L5Xt7Zw46rSLS3fu0QvAQZJ2Bsenzd1ue//s7PREa6eqfx9e+fAj08dzN+Z3d3/+aWR2fXCW9QSzUlUVksUax/tiHO+LCcliLStV1VXWE9Db61F4Gy6s1jmq3z+6kMAfSMk4Pm3+9hv21suXv114PIKwUY8eR0SrdY76LvzFZ1Df7x/1rNY5Sm+PCMliTYsdy3qCQrJYG/XAWuiEZLHGsp4g1AHgdCWEgjI0Ikk74+a8USmn9GAwDDMYYWG5OW9Uq9eu3Zw3WirXB3pfKaf03Jw3SpJ2ZsofSMkoiqLhEO+AENE0cHS77X3XGmMxmWYtm2Kl+cS/kc9KVTUrVdUn/o38plhpmkyzFtcaY+l0Dlo0fV54/f5RLxziHSiKov5ASkZK5fpAf3WW9QQ53hfTXrtUrg8wzGAkCBtVKtcHWjg53hfTwgSlVK4PJmoVe3vbMoIgCI7PmPW6y2Tq+Pj1K4gXVHY67da1a58swX2/f9TbysRDCaGgJISCspWJh7SMI0k7A9sI3Ls5b/T4+PUrhCTtDCxz/UNpT4wg59DpocDxGfMognC8L3ah446iaUIoKFqa6hNgmMGYEAqKnqZCsjisgeEbyHkxtso+GFZmJhMPdrt/7a9HMs9G9SeCsFHrkcyzZuP3XzOZ+DDBKusJynlxSJBhJTcaL2oY9sEVbZBwiHewrCcY+WGrcnj4ZxPq5+nlT02mWYuc34xpg8NbaVs2Chf+QErudA5aP6a+/0p/WgwzGGkaOHB82owg5yTY29uW9a0FQc4pi+Mz5nCIvziQ/q92nZWq6qUzwc15o1mpqorpSnMZ3F0bN3CWwd01MV1pZqWqCn3GBtcm8QdSMkHYKMgI/ZCHnwDIPIKwUf5ASr40+DiBc2Dc/j8LSdoZKaf04LdFyim9Sb8t/wAuUBEVwWzjYwAAAABJRU5ErkJggg==">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Settings/" class="design">Настройки</a></figcaption>
+                    </figure>
+                </td>
+            </tr>
+        </table>
         <hr>
     </center>
 
-    <h3>Изменение курса валют по датам</h3>
+    <p align="left">
+        <b>
+            Изменение курса валют по датам
+        </b>
+    </p>
 
-    <select id="valute" name="valSelection">
+    <select id="valute" name="valSelection" class="outSelect">
         <option value="00">---Выберите валюту---</option>
         @foreach (string val in (List<string>)ViewBag.SelectList)
         {
@@ -221,7 +296,7 @@
         }
     </select>
 
-    <select id="periods" name="periodSelection">
+    <select id="periods" name="periodSelection" class="outSelect">
         <option value="0">---Выберите период---</option>
         <option>Неделя</option>
         <option>Месяц</option>

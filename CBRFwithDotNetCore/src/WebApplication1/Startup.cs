@@ -3,24 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using CBRFService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.Xml.Serialization;
+using CBRFService;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Logging;
+
 using CBRFConverter.Models;
 using CBRFConverter.ValutesApi;
 using CBRFConverter.XmlClasses;
+using WebApplication1.ValutesApi;
 
 namespace CBRFConverter
 {
@@ -33,8 +33,26 @@ namespace CBRFConverter
         public static Dictionary<string, string> codesList = new Dictionary<string, string>();
         public static ValuteListConverter converter = new ValuteListConverter();
 
+        //public IConfigurationRoot Configuration { get; }
+        //public Startup(IHostingEnvironment env)
+        //{
+        //    var builder = new ConfigurationBuilder()
+        //        .SetBasePath(env.ContentRootPath)
+        //        .AddJsonFile("global.json", optional: true, reloadOnChange: true)
+        //        .AddJsonFile($"global.{env.EnvironmentName}.json", optional: true)
+        //        .AddEnvironmentVariables();
+        //    Configuration = builder.Build();
+        //}
+
         public void ConfigureServices(IServiceCollection services)
         {
+            ////для БД
+            //// получаем строку подключения из файла конфигурации
+            //string connection = Configuration.GetConnectionString("DefaultConnection");
+            //// добавляем контекст MobileContext в качестве сервиса в приложение
+            //services.AddDbContext<EnumValuteContext>(options =>
+            //    options.UseSqlServer(connection));
+
             //подключение сервисов
             services.AddTransient<TimeService>();
             services.AddMvc();
@@ -53,6 +71,10 @@ namespace CBRFConverter
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            DBMethods.GetEnumValutes();
+            //string connection = Configuration.GetConnectionString("DefaultConnection");
+
             app.UseDeveloperExceptionPage();
             //сессии
             app.UseSession();
@@ -100,7 +122,6 @@ namespace CBRFConverter
                 //список валют
                 var _cursTable3 = loader.EnumValutesXMLAsync(new EnumValutesXMLRequest(false)).Result;
                 //все курсы за определенный период с заданной валютой
-
                 string a = _cursTable2.GetCursOnDateXMLResult.ToString();
                 string b = _cursTable3.EnumValutesXMLResult.ToString();
 

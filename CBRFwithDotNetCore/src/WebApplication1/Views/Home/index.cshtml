@@ -12,28 +12,36 @@
 
 
     <style>
+        .tabs {
+            border-spacing: 7px 11px; /* Расстояние между ячейками */
+        }
+
         .design {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #B6B8DB; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #B6B8DB;
+            margin-top: 10px;
         }
 
         .selected {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #6A87EC; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #6A87EC;
+            margin-top: 10px;
         }
-  
+
+        .vals {
+            width: 200px; /* Ширина слоя */
+            margin: 15px; /* Значение отступов */
+            padding: 10px; /* Поля вокруг текста */
+            border: 4px /*solid black*/; /* Параметры границы */
+            background: #2a2e47; /* Цвет фона */
+            white-space: nowrap;
+        }
     </style>
     <style>
         body {
@@ -47,40 +55,88 @@
             background-color: #292F4E;
             height: 1px;
         }
+
+        .rate {
+            font-size: 30px;
+            text-align: right;
+        }
+
+        figure {
+            max-width: 100px;
+        }
+
+        figcaption {
+            text-align: center;
+            color: grey;
+        }
     </style>
 
 </head>
 <body>
     <center>
         <hr>
-        @*<img src="/1.png"/>*@
-        <a href="/Home/Index/" class="selected">Курс валют</a>
-
-        @*<img src="/2.png"/>*@
-        <a href="/Home/Dynamic/" class="design">Динамика</a>
-
-        @*<img src="/3.png"/>*@
-        <a href="/Home/Convert/" class="design">Кошелек</a>
-
-        @*<img src="/4.png"/>*@
-        <a href="/Home/Settings/" class="design">Настройки</a>
+        <table class="tabs">
+            <tr>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Index/">
+                                @*<img src="~/wwwroot/pics/1.png">*@
+                                <img src="~/pics/1.png">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Index/" class="selected">Курс валют</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Dynamic/">
+                                <img src="~/pics/not2.png">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Dynamic/" class="design">Динамика</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Convert/">
+                                <img src="~/pics/not3.png">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Convert/" class="design">Кошелек</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Settings/">
+                                <img src="~/pics/not4.png">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Settings/" class="design">Настройки</a></figcaption>
+                    </figure>
+                </td>
+            </tr>
+        </table>
         <hr>
     </center>
     <p align="left"><b>Избранные валюты</b></p>
     <p align="right">Курс от @ViewBag.LoadDate</p>
-    <table>
-        <tr>
-            <td><b>Валюта</b></td>
-            <td><b>Стоимость</b></td>
-        </tr>
+    
         @foreach (var val in (Dictionary<string, string>)ViewBag.Vals)
-            {
-            <tr>
-                <td>@val.Key</td>
-                <td>@val.Value</td>
-            </tr>
+        {
+            //с помощью span автоперенос 
+            <span class="vals">
+
+                @val.Key
+                
+                <a class="rate">@val.Value</a>
+
+            </span>
         }
-    </table>
+    
 </body>
 
 </html>

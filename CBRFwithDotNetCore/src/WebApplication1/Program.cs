@@ -5,6 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
+
+//TODO
+//Сделать переноы на 1й странице
+//Изменить цвет галочек в настройках
+//Конвертер при перезагрузке страницы не обнуляет отмеченные
+//Выгрузка в БД
 namespace CBRFConverter
 {
     public class Program
@@ -14,7 +20,7 @@ namespace CBRFConverter
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-               /* .UseWebRoot() */  // установка папки static
+               //.UseWebRoot("static")// установка папки static
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

@@ -38,63 +38,138 @@
     </script>
 
     <style>
-        .design {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #B6B8DB; /* Цвет текста и ссылки */
+        .tabs {
+            border-spacing: 7px 11px; /* Расстояние между ячейками */
         }
+
+        .design {
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #B6B8DB;
+            margin-top: 10px;
+        }
+
         .selected {
-            display: inline-block; /* Строчно-блочный элемент */
-            padding: 5px 20px; /* Добавляем поля */
-            text-decoration: none; /* Убираем подчёркивание у ссылки */
-            cursor: pointer; /* Курсор в виде руки */
-            border-radius: 10px; /* Скругляем уголки */
-            border: 1px solid #008; /* Добавляем синюю рамку */
-            font: 12px/1 Arial, sans-serif; /* Рубленый шрифт */
-            color: #62D370; /* Цвет текста и ссылки */
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            font: 12px/1 Arial, sans-serif;
+            color: #62D370;
+            margin-top: 10px;
         }
     </style>
-    <style>
-        body {
-            background: #1E223B;
-            color: #ffffff;
-        }
-        hr {
-    border: none; 
-    color: #292F4E;
-    background-color: #292F4E; 
-    height: 1px;
-   }
 
-       
+    <style>
+                /*input[type="checkbox"] {
+                    display: none;
+                }
+
+                    input[type="checkbox"] + label span{
+        display:inline-block;
+        width:40px;
+        margin-right: 10px;
+        height:40px;
+        vertical-align:middle;
+        border: 5px solid green;
+        cursor:pointer;
+        border-radius: 5px;
+        }
+
+                    input[type="checkbox"]:checked + label span{
+        background:#64DA72 no-repeat;
+        }*/
+
+                body {
+                    background: #1E223B;
+                    color: #ffffff;
+                }
+
+                hr {
+                    border: none;
+                    color: #292F4E;
+                    background-color: #292F4E;
+                    height: 1px;
+                }
+
+                figure {
+                    max-width: 100px;
+                }
+
+                figcaption {
+                    text-align: center;
+                    color: grey;
+                }
     </style>
 </head>
 
 <body>
     <center>
         <hr>
-        <a href="/Home/Index/" class="design">Курс валют</a>
-        <a href="/Home/Dynamic/" class="design">Динамика</a>
-        <a href="/Home/Convert/" class="design">Кошелек</a>
-        <a href="/Home/Settings/" class="selected">Настройки</a>
+        <table class="tabs">
+            <tr>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Index/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABHNCSVQICAgIfAhkiAAAAjpJREFUOI2tkz+M0nAUxx8Xt8Idk78BhoZOklzthrDcXUJnWx1tcjDBhHhNdCH8MTrAhHgo53JcQichlHNoE0jkFgmL/DGBpTQM58BkFTvXwcOcpeid8t368n3fz3vvl9rAJH+AZpLJ13Vz/V80mYz6S8VkqiQybDi+DoAkK8ZS0W7fdK4jfAG4wXGx9Dbp21lH4Juj54/MZ7FJsmIIlUKGYcPxSqWQVq3u9gcxbDiOYQ4nAICuz7WnmSjz2wYAANukbwfDHFudD00RIReu63NtMQlBeKk7/uBd/fs3rdNpNWaz8+llgIfwUsEgu79qgA0AgE/D7tmTxw/2zM3JVEk8LJ72SNK3F4km8ofF0x5N3w9d9oj143yrVT/R9flXS4LlSwMAx8XSkqwYkWgiTxBeyh+gmfLJ2VSSFQMhN27lz+aEtjl7Y9Vq/gDNAAAMh932TeTCOS6WxjDHFgAATd8LreozayXA47l1GwDg4CB7DABwVHoWV9Xx4KrBfwV0Oq0GAIAgvMwg5MYZNhxX1XEfAGA2+zz9b4BQKaQBAIJBdl+djPqz2fmUYUIPVXU8aDZr5VV9BOGlJFkxJFkxVHU8gMVHNie8N5tJ0rdbfPWuv/DwfK68+NOTqZJIEF6KILzU2+rHLxcZ7SWiJCuGP0Az1VpPI0nf7lVXXygSTeR5Plfm+VzZCmCr1nqaYRiG3b7pnExGfV2fa9cBIOTCMeznVg2x/KJycdpfAITcOEIu/LqTW2k47LbNtR9oaAXvFlgWNwAAAABJRU5ErkJggg==">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Index/" class="design">Курс валют</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Dynamic/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAABHNCSVQICAgIfAhkiAAAAZ1JREFUSIntlbFLAlEcx7/PoohDcnuBgdVNCZlbXUsO52zUaBD9A2EFtWlDDbUlRdpSgY2Vtiqk02FLeUJOHgUFWYPneTdUS0M9iNA0uYai7/Z97/d7n997P348AhPF80731vbpBfO6rqntZgI4zmpTlEIuGlkNAMD6xuFZXQDPO92jguhj/qF0d5NMHu03gui6pspyNs28pV6gIIgTXu/ULAFID+3tX1hc32v2Jh9VFwAApdLtdSwWXmmm8pYAZugf0FAtzYEw5p0YGBgcZj4R39/UdU01DRAM7pwoSiGn65rK8043AUgsFl6pFdvyE0Ujq4HlJb+nWLy6/Cru53sQDEXiHGftZgu70bX5RlV9RxZBEH15OZvJy9kMpb39HGe1mXU48N5k1qAh14jHzMOBvzBovx/QDgD+6bkQAFBqd3zcpNTu8E/PhSi1931OFL2TM0OukXFK7Y58jRzm2wyjWuns6OwiAFGUQk6Wz9OGoamGUVVfnp+eCEAMo1pJJY8PFKVwCbx9nwQgLEeSUvFy+fEeIGDrBCCSlEq8AhxMlQqmlvyoAAAAAElFTkSuQmCC">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Dynamic/" class="design">Динамика</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Convert/">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAUCAYAAACXtf2DAAAABHNCSVQICAgIfAhkiAAAA1tJREFUOI2tVU9ME2kUf4Pc5ut0NNn9sqGJzcypTfpZLvsxXDok7W0Tp3rZBBLpZfGEbDh40FBJPKwkuoiLf9aDJSkezIJVD7JpE6sXbKKhDAnlYAcIkDhowjCdLxEu3QP9EI0RN/V3mZeXN7837/f+zBFoACFJ/vvuvxVFDUVFJMmbmxuru7s7H6BJtHIjQqjOWG17095YTSZTvw8OjmSq1cWyaZaKC2apODtbeMRjMQ4Ef8RtxzFuC2IcCPLngll6ns2OXTqYQMA4EPyt78KfqhqKFvLTEzwAIUmOEKoTQnVNSxgYtx237fUVjANBAADLqsx7nutYVqXMPNcRkSTH46fO5PNTmfuTN4Y9z3UAAI4MpW/lnK33tqqG2x88uPOHbW+sAADs7u58WF+zll6/ejGTy2VGC/npiU17YxUEQTh27IefRNHnX1uzlsxGdVtb797GYr/86vP5j2IcCL5+9WIGAKCVEBrLZseeiaLPHyE0FiE09jVNq9XFuWp1cU5RQlFCqN7ZmTAAADzPdRCS5Hx+KqOq4fZPekAI7ZrMjg0LAMK3Nm/ZqswvW5X5z/1aZ8Lg8gAAwNOZN3WuKyFU7+7pTyMkyQhJcndPf5oQqgMAGMnUQDxx6gwn4XGqGo529/SnVTUc5RxXRiaLnL8FAMC211cA9qaDENq1NxkfbYQkmRCqnyAdXZxEVcPtoijJDam6RNEnf7HUpzNv6t8qy9dACNUjhMYMo/fcX+OP57gqrYe8dygwDgSvjGSfMVbb5tozVtvOTBSXr109n2q6gr6zF0f7zl4c/dxPCNX/mZpzWpohBwBQlFCUea6jquEoHwgAANMsFUXR5286wWFougeWVSmLSJKr1cXyQT9p3LamE+QeZkbHbz4pRyI/xxir7S+YooSid25fHvguY8r3hBCqG8nUwPjNJ2W+eJ9UoHUmDEUJnXjZOM0dWvykZVXmF8xS8aTRe455rpPLZa4bydSAKPr8hfz0BMZtwQihsQWz9Nw0S0UAAE+LO1yyFv4FPIkAIHie63ie6/Db5Hmuw1htGwRBANjbfAFAYMx1GKs5e/ZHeQ5CGErfztXr9bplVcpfCvi/0LS48XK28Ij/VwSEJDmeON2raXGjWXLGao5ploq5h/f2F+8/vDR/Mu4Ud9UAAAAASUVORK5CYII=">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Convert/" class="design">Кошелек</a></figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <center>
+                            <a href="/Home/Settings/">
+                                <img src="data:image/png;base64,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">
+                            </a>
+                        </center>
+                        <figcaption><a href="/Home/Settings/" class="selected">Настройки</a></figcaption>
+                    </figure>
+                </td>
+            </tr>
+        </table>
         <hr>
     </center>
 
-    <h3>Отображаемые валюты</h3>
+    <p align="left">
+        <b>
+            Отображаемые валюты
+        </b>
+    </p>
     <table>
-        <tr>          
-        </tr>
+        <tr></tr>
         @foreach (Valutes val in (List<Valutes>)ViewBag.Vals)
             {
             <tr>
                 <td>
                     @*<input type="checkbox" name="@_val.Name" class="chkitem"/>*@
                     @Html.CheckBox(val.Name, val.IsChecked)
+                    @*<input type="checkbox" id="box1" name="@val.Name" checked=@val.IsChecked>
+                        <label for="box1"><span>@val.Name</span></label>*@
+
                 </td>
                 <td>@val.Name</td>
             </tr>
