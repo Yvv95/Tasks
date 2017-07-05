@@ -18,4 +18,4 @@
 
 б)JQuery
 
-в) Google charts
+в)Google charts
