@@ -72,7 +72,7 @@ namespace CBRFConverter
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
 
-            DBMethods.GetEnumValutes();
+            //DBMethods.GetEnumValutes();
             //string connection = Configuration.GetConnectionString("DefaultConnection");
 
             app.UseDeveloperExceptionPage();
@@ -121,9 +121,8 @@ namespace CBRFConverter
                     loader.GetCursOnDateXMLAsync(new GetCursOnDateXMLRequest(_lastDate.GetLatestDateTimeResult)).Result;
                 //список валют
                 var _cursTable3 = loader.EnumValutesXMLAsync(new EnumValutesXMLRequest(false)).Result;
-                //все курсы за определенный период с заданной валютой
-                string a = _cursTable2.GetCursOnDateXMLResult.ToString();
-                string b = _cursTable3.EnumValutesXMLResult.ToString();
+                string a = _cursTable2.GetCursOnDateXMLResult.ToString().Trim();
+                string b = _cursTable3.EnumValutesXMLResult.ToString().Trim();
 
                 using (TextReader _tmp = new StringReader(a))
                 {
@@ -139,9 +138,18 @@ namespace CBRFConverter
                 }
 
                 for (int i = 0; i < enumValute.ValsList.Count(); i++)
+                {
+
                     if (!codesList.ContainsKey(enumValute.ValsList[i].Vname.Trim()) &&
                         (enumValute.ValsList[i].Vname != null) && (enumValute.ValsList[i].Vcode != null))
                         codesList.Add(enumValute.ValsList[i].Vname.Trim(), enumValute.ValsList[i].Vcode.Trim());
+
+                    try
+                    {
+                        DBMethods.CreateEnumValute(enumValute.ValsList);
+                    }
+                    catch { };
+                }
             }
 
             catch (Exception e)

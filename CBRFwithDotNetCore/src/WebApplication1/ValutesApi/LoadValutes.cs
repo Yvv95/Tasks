@@ -20,7 +20,6 @@ namespace CBRFConverter.ValutesApi
                 var lastLoadTask = loader.GetLatestDateTimeAsync(new GetLatestDateTimeRequest());
                 var _lastDate = lastLoadTask.Result;
                 lastLoadDate = _lastDate.GetLatestDateTimeResult.ToString(@"dd.MM.yyyy");
-                loader.CloseAsync();
             }
             finally
             {

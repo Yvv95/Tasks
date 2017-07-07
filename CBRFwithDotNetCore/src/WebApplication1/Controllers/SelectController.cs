@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using CBRFConverter.Models;
 using CBRFConverter.XmlClasses;
 using CBRFConverter.ValutesApi;
+using WebApplication1.ValutesApi;
 
 namespace CBRFConverter.Controllers
 {
@@ -58,6 +59,7 @@ namespace CBRFConverter.Controllers
                     dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
                     pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
                 }
+                DBMethods.AddCurse(valName, pointList);
             }
             catch (Exception e)
             {
