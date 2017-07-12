@@ -37,38 +37,45 @@ namespace CBRFConverter.Controllers
                     daysMinus = 365;
                     break;
             }
-            var loader = new CBRFService.DailyInfoSoapClient(DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap);
             DynamicValuteCollection dynamicVals = new DynamicValuteCollection();
             List<DayCursePairs> pointList = new List<DayCursePairs>();
-            try
+
+            pointList = DBMethods.LoadCurses(valName, DateTime.Now.AddDays(-daysMinus), DateTime.Now);
+            if (pointList.Count < daysMinus/2)
             {
-                loader.OpenAsync();
-                var _cursTable4 =
-                    loader.GetCursDynamicXMLAsync(new GetCursDynamicXMLRequest(DateTime.Now.AddDays(-daysMinus), DateTime.Now,
-                        Startup.codesList[valName])).Result;
-                string c = _cursTable4.GetCursDynamicXMLResult.ToString();
-                using (TextReader _tmp = new StringReader(c))
+                var loader = new CBRFService.DailyInfoSoapClient(DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap);
+                pointList = new List<DayCursePairs>();
+                try
                 {
-                    XmlSerializer serializer2 = new XmlSerializer(typeof(DynamicValuteCollection));
-                    dynamicVals = (DynamicValuteCollection)
-                        serializer2.Deserialize(_tmp);
+                    loader.OpenAsync();
+                    var _cursTable4 =
+                        loader.GetCursDynamicXMLAsync(new GetCursDynamicXMLRequest(DateTime.Now.AddDays(-daysMinus), DateTime.Now,
+                            Startup.codesList[valName])).Result;
+                    string c = _cursTable4.GetCursDynamicXMLResult.ToString();
+                    using (TextReader _tmp = new StringReader(c))
+                    {
+                        XmlSerializer serializer2 = new XmlSerializer(typeof(DynamicValuteCollection));
+                        dynamicVals = (DynamicValuteCollection)
+                            serializer2.Deserialize(_tmp);
+                    }
+                    for (int i = 0; i < dynamicVals.ValsList.Count(); i++)
+                    {
+                        DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
+                        dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
+                        pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
+                    }
+                    DBMethods.AddCurse(valName, pointList);
                 }
-                for (int i = 0; i < dynamicVals.ValsList.Count(); i++)
+                catch (Exception e)
                 {
-                    DateTime tmp = DateTime.Parse(dynamicVals.ValsList[i].CursDate);
-                    dynamicVals.ValsList[i].CursDate = tmp.ToString(@"dd.MM.yyyy");
-                    pointList.Add(new DayCursePairs(dynamicVals.ValsList[i].CursDate, dynamicVals.ValsList[i].Vcurs));
+                    Console.WriteLine(e);
                 }
-                DBMethods.AddCurse(valName, pointList);
+                finally
+                {
+                    loader.CloseAsync();
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            finally
-            {
-                loader.CloseAsync();
-            }
+
             return new JsonResult(pointList);
         }
     }
