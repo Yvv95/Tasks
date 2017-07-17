@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 //TODO
 //Изменить цвет галочек в настройках
 //Вылет из-за неправильной проверки даты
-//Конвертер при перезагрузке страницы не обнуляет отмеченные
 //InvalidOperationException: The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be modified while it is in the Opened state.
 namespace CBRFConverter
 {

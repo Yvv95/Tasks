@@ -19,12 +19,16 @@ namespace CBRFConverter.Models
             counts = 0;
             selected = false;
         }
+        //чтобы передавать в отметках в конвертере
+        public ValuteConverter(string _name)
+        {
+            name = _name;
+        }
 
         public void updateExchange(string _exchange)
         {
             exchange = _exchange;
         }
-
 
 
     }

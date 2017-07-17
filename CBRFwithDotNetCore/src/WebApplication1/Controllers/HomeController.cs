@@ -82,6 +82,8 @@ namespace CBRFConverter.Controllers
         public IActionResult Convert()
         {
             ViewBag.SelectList = (List<string>)Startup.vals.getNames();
+            for (int i = 0; i < Startup.converter.lists.Count(); i++)
+                HttpContext.Session.SetString("!" + Startup.converter.lists[i].name.Trim(), "false");
             return View();
         }
 

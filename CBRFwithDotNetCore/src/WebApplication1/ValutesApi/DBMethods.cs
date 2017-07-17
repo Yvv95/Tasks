@@ -14,6 +14,7 @@ namespace WebApplication1.ValutesApi
         static string connectionString = @"Data Source=106PC0051;Initial Catalog=ExchRates;Integrated Security=True";
         public static void CreateEnumValute(EnumValutes[] toLoad)
         {
+            //название хранимой процедуры
             string sqlExpression = "sp_InsertEnum";
             string sqlCheck = "sp_CheckName";
             //здесь проверка на то, что уже есть в БД

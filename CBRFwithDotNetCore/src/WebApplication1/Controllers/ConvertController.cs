@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc;
 using CBRFConverter.Models;
 using CBRFConverter.ValutesApi;
 using CBRFService;
+using System.Globalization;
+
 namespace CBRFConverter.Controllers
 {
     public class ConvertController : Controller
     {
-
+        //сразу выводить уже отмеченные
         [HttpPost]
         public ActionResult AddToConvert(string name)
         {
+            List<ValuteConverter> tmp = new List<ValuteConverter>();
             for (int i = 0; i < Startup.converter.lists.Count(); i++)
             {
+                if (HttpContext.Session.GetString("!" + Startup.converter.lists[i].name.Trim()) == "false")
+                    tmp.Add(new ValuteConverter(Startup.converter.lists[i].name.Trim()));
+
                 if (Startup.converter.lists[i].name.Trim() == name.Trim())
                 {
-                    Startup.converter.lists[i].selected = true;
-                    return new JsonResult(Startup.converter.getUnChecked());
+                    tmp.RemoveAt(tmp.Count - 1);
+                    HttpContext.Session.SetString("!" + name.Trim(), "true");
                 }
             }
-            return Json(new { resultMessage = false });
+            return new JsonResult(tmp);
+            //return Json(new { resultMessage = false });
         }
 
         [HttpPost]
@@ -33,7 +40,7 @@ namespace CBRFConverter.Controllers
             {
                 if (Startup.converter.lists[i].name.Trim() == name.Trim())
                 {
-                    Startup.converter.lists[i].selected = false;
+                    HttpContext.Session.SetString("!" + Startup.converter.lists[i].name.Trim(), "false");
                     return new JsonResult(Startup.converter.getUnChecked());
                 }
             }
@@ -42,6 +49,11 @@ namespace CBRFConverter.Controllers
 
         public ActionResult LoadList()
         {
+            for (int i = 0; i < Startup.converter.lists.Count(); i++)
+            {
+                Startup.converter.lists[i].selected = false;
+                HttpContext.Session.SetString("!" + Startup.converter.lists[i].name.Trim(), "false");
+            }
             return Json(new { Startup.converter.listToSelect });
         }
 
@@ -73,26 +85,27 @@ namespace CBRFConverter.Controllers
                 Startup.lastLoadDate = cbrfUpdate;
                 helper.Update();
             }
+            double sum = 0;
+            sum = tryCount(_valList, _numList, _exitval);
+            return Json(new { counted = sum, failVal = "ok" });
+        }
 
-            bool parsed = false;
-            Startup.converter.exitVal = _exitval;
+
+        private double tryCount(List<string> _valList, List<string> _numList, string _exitval)
+        {
+            double countedSum = 0, ratio = 1, _count=0, _exch=0;
             for (int i = 0; i < _valList.Count; i++)
             {
-                int temp = Startup.converter.allList.IndexOf(_valList[i]);
-                if (temp > -1)
-                {
-                    double parseRes = 0;
-                    parsed = double.TryParse(_numList[i].Replace(".", ","), out parseRes);
-                    if (parsed == false)
-                        return Json(new { countedSum = 0, failVal = _valList[i] });
-                    Startup.converter.lists[temp].counts = parseRes;
-                }
+                if (double.TryParse(_numList[i].Replace(".", ","), out _count))
+                    if (double.TryParse(Startup.vals.GetExchange(_valList[i]).Replace(".", ","), out _exch))
+                        countedSum+= _exch* _count;                
             }
-            double sum =
-                Startup.converter.tryCount();
-            for (int i = 0; i < Startup.converter.lists.Count; i++)
-                Startup.converter.lists[i].counts = 0;
-            return Json(new { counted = sum, failVal = "ok" });
+            for (int i = 0; i < Startup.vals.ValsList.Count; i++)
+                if (Startup.vals.ValsList[i].Name == _exitval)
+                      double.TryParse(Startup.vals.ValsList[i].Exchange, NumberStyles.Number, CultureInfo.InvariantCulture, out ratio);
+
+            countedSum = countedSum / ratio;
+            return Math.Round(countedSum, 2);
         }
     }
 }
